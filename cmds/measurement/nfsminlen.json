@@ -1,0 +1,37 @@
+{
+  "name": "nfsminlen",
+  "desc": "minimum sampling distance for near-field antenna measurements",
+  "eplg": [],
+  "prgs": [
+    {
+      "name": "freq",
+      "desc": "frequency of interest in Hertz [Hz]",
+      "type": "float",
+      "cunt": 1
+    }
+  ],
+  "orgs": [],
+  "flgs": [
+    {
+      "name": "human",
+      "desc": "human readable output like mm, cm, m"
+    }
+  ],
+  "frml": [
+    "R_{nf} &= \\\\lambda/2 = c_0/(2\\\\timesf)"
+  ],
+  "rfrs": [
+    "IEEE 1720-2012 Recommended Practice for Near-Field Antenna Measurements, Section 5.2.5, Page 23, Equation 25"
+  ],
+  "reqs": [
+    "math",
+    "scipy.constants as constants"
+  ],
+  "code": [
+    "nfs = 0.5*constants.speed_of_light/args.freq[0]",
+    "if args.human: ",
+    "\tprint('%d mm'%(math.floor(nfs*1E3)))",
+    "else:",
+    "\tprint('%.16G' %(nfs))"
+  ]
+}

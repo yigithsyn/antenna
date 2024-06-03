@@ -1,0 +1,35 @@
+{
+  "name": "gamma2swr",
+  "desc": "reflection coefficient (gamma) to standing wave ratio (swr) conversion",
+  "eplg": [],
+  "prgs": [
+    {
+      "name": "gamma",
+      "desc": "reflection coefficient",
+      "type": "float",
+      "cunt": "+"
+    }
+  ],
+  "orgs": [],
+  "flgs": [
+    {
+      "name": "db",
+      "desc": "input reflection coefficient in dB"
+    }
+  ],
+  "frml": [
+    "SWR &= \\\\dfrac{1+|\\\\Gamma|}{1-|\\\\Gamma|}"
+  ],
+  "rfrs": [
+    "https://en.wikipedia.org/wiki/Reflection_coefficient",
+    "https://en.wikipedia.org/wiki/Standing_wave_ratio"
+  ],
+  "reqs": [
+    "numpy"
+  ],
+  "code": [
+    "gml = numpy.power(10,numpy.asarray(args.gamma)/20) if args.db else numpy.asarray(args.gamma)",
+    "numpy.set_printoptions(precision=3)",
+    "numpy.savetxt(sys.stdout,(1+gml)/(1-gml),fmt='%.16G')"
+  ]
+}

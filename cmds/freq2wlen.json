@@ -1,0 +1,41 @@
+{
+  "name": "freq2wlen",
+  "desc": "frequency to wavelength conversion",
+  "eplg": [],
+  "prgs": [
+    {
+      "name": "freq",
+      "desc": "frequency in Hertz [Hz]",
+      "type": "float",
+      "cunt": 1
+    }
+  ],
+  "orgs": [],
+  "flgs": [
+    {
+      "name": "human",
+      "desc": "human readable output like cm, mm, km"
+    }
+  ],
+  "frml": [
+    "\\\\lambda &= c0/f"
+  ],
+  "rfrs": [],
+  "reqs": [
+    "scipy.constants as constants"
+  ],
+  "code": [
+    "wle = constants.speed_of_light/args.freq[0]",
+    "if args.human: ",
+    "\tif (wle >= 1E3):",
+    "\t\tprint('%.1f km'%(wle / 1E3))",
+    "\telif (wle >= 1):",
+    "\t\tprint('%.1f m'%(wle / 1E0))",
+    "\telif (wle >= 1E-2):",
+    "\t\tprint('%.1f cm'%(wle * 1E2))",
+    "\telse:",
+    "\t\tprint('%.1f mm' %(wle*1E3))",
+    "else:",
+    "\tprint('%.16G' %(wle))"
+  ]
+}

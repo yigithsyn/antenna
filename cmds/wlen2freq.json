@@ -1,0 +1,43 @@
+{
+  "name": "wlen2freq",
+  "desc": "wavelength to frequency conversion",
+  "eplg": [],
+  "prgs": [
+    {
+      "name": "wlen",
+      "desc": "wavelength in meters [m]",
+      "type": "float",
+      "cunt": 1
+    }
+  ],
+  "orgs": [],
+  "flgs": [
+    {
+      "name": "human",
+      "desc": "human readable output like kHz, MHz, GHz"
+    }
+  ],
+  "frml": [
+    "f &= c0/\\\\lambda"
+  ],
+  "rfrs": [],
+  "reqs": [
+    "scipy.constants as constants"
+  ],
+  "code": [
+    "frq = constants.speed_of_light/args.wlen[0] ",
+    "if args.human:",
+    "\tif (frq >= 1E12):",
+    "\t\tprint('%.1f THz'%(frq / 1E12))",
+    "\telif (frq >= 1E9):",
+    "\t\tprint('%.1f GHz'%(frq / 1E9))",
+    "\telif (frq >= 1E6):",
+    "\t\tprint('%.1f MHz'%(frq / 1E6))",
+    "\telif (frq >= 1E3):",
+    "\t\tprint('%.1f kHz' %(frq/1E3))",
+    "\telse:",
+    "\t\tprint('%.1f Hz' %(frq))",
+    "else:",
+    "\tprint('%.16G' %(frq))"
+  ]
+}

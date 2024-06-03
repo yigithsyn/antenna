@@ -1,0 +1,29 @@
+{
+  "name": "lineofsight",
+  "desc": "line-of-sight range in kilometers [km] for a given height",
+  "eplg": [],
+  "prgs": [
+    {
+      "name": "height",
+      "desc": "height of transmitter/recevier above ground in meters [m]",
+      "type": "float",
+      "cunt": "+"
+    }
+  ],
+  "orgs": [],
+  "flgs": [],
+  "frml": [
+    "R_{los} &= \\\\sqrt{2\\\\cdotR\\\\cdoth} \\\\approx 3.57\\\\times\\\\sqrt{h} [km]"
+  ],
+  "rfrs": [
+    "https://en.wikipedia.org/wiki/Line-of-sight_propagation"
+  ],
+  "reqs": [
+    "numpy"
+  ],
+  "code": [
+    "rhz = 3.57*numpy.sqrt(args.height)",
+    "numpy.set_printoptions(precision=3)",
+    "numpy.savetxt(sys.stdout,rhz,fmt='%.16G')"
+  ]
+}
