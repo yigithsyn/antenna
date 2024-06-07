@@ -4,7 +4,7 @@ name        = "freq2wlen"
 description = "frequency to wavelength conversion"
 epilogue    = ""
 formula     = [
-  "\\\\lambda &= c0/f"
+  "\lambda &= c0/f"
 ]
 
 
