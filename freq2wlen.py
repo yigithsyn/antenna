@@ -4,7 +4,7 @@ import argparse
 from scipy import constants
 
 parser = argparse.ArgumentParser(prog="freq2wlen", description="frequency to wavelength conversion", formatter_class=argparse.RawDescriptionHelpFormatter, epilog="formula:\n\\lambda &= c0/f\n\n")
-parser.add_argument("frequency", help="frequency in Hertz [Hz]", type=float, nargs=1)
+parser.add_argument("freq", help="frequency in Hertz [Hz]", type=float, nargs=1)
 parser.add_argument("--human", help="human readable output like cm, mm, km", action="store_true")
 args = parser.parse_args(sys.argv[1:])
 
