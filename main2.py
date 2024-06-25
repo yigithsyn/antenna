@@ -11,19 +11,19 @@ modules     = []
 positional_args = []
 optional_args   = []
 flags           = []
-for file in os.listdir("cmds2"):
+for file in filter(lambda item: os.path.isfile('cmds2/'+item), os.listdir("cmds2")):
   with open("cmds2/%s"%(file), "r") as file:
     # print(file.read())
     file_data = file.read()
     exec(file_data)
-    print(name)
-    print(description)
-    print(epilogue)
-    print(modules)
-    print(positional_args)
-    print(optional_args)
-    print(flags)
-    print("\n\n")
+    # print(name)
+    # print(description)
+    # print(epilogue)
+    # print(modules)
+    # print(positional_args)
+    # print(optional_args)
+    # print(flags)
+    # print("\n\n")
     with open("%s.py"%name, "w") as file:
       file.write("import sys\n")
       file.write("import argparse\n")
