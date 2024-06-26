@@ -13,23 +13,13 @@ optional_args   = []
 flags           = []
 for file in filter(lambda item: os.path.isfile('cmds2/'+item), os.listdir("cmds2")):
   with open("cmds2/%s"%(file), "r") as file:
-    # print(file.read())
     file_data = file.read()
     exec(file_data)
-    # print(name)
-    # print(description)
-    # print(epilogue)
-    # print(modules)
-    # print(positional_args)
-    # print(optional_args)
-    # print(flags)
-    # print("\n\n")
     with open("%s.py"%name, "w") as file:
       file.write("import sys\n")
       file.write("import argparse\n")
       file.write("\n")
       file.write(file_data.split("name")[0])
-
       file.write('parser = argparse.ArgumentParser(prog="%s", description="%s", formatter_class=argparse.RawDescriptionHelpFormatter, epilog="%s%s\\n\\n%s%s")\n'%(name,description,'formula:\\n' if formula else '','\\n'.join(formula).replace('\\','\\\\'),'references:\\n- ' if references else '','\\n- '.join(references)))
       for item in positional_args:
         arg_count = '"%s"'%item['count'] if type(item['count']) == str else '%d'%item['count'] 
@@ -41,9 +31,7 @@ for file in filter(lambda item: os.path.isfile('cmds2/'+item), os.listdir("cmds2
         file.write('parser.add_argument("--%s", help="%s", action="store_true")\n'%(item['name'], item['description']))
       file.write('args = parser.parse_args(sys.argv[1:])')
       file.write("\n")
-
-      file.write(file_data.split("args = {}")[1])
-      # file.write("print(wavelength)")
+      file.write(file_data.split("# implementation")[1])
 
 # cmds = []
 # for file in filter(lambda itm: os.path.isfile('cmds/'+itm), os.listdir("cmds")):

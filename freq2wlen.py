@@ -1,6 +1,7 @@
 import sys
 import argparse
 
+import sys, os
 from scipy import constants
 
 parser = argparse.ArgumentParser(prog="freq2wlen", description="frequency to wavelength conversion", formatter_class=argparse.RawDescriptionHelpFormatter, epilog="formula:\n\\lambda &= c0/f\n\n")
@@ -8,9 +9,8 @@ parser.add_argument("freq", help="frequency in Hertz [Hz]", type=float, nargs=1)
 parser.add_argument("--human", help="human readable output like cm, mm, km", action="store_true")
 args = parser.parse_args(sys.argv[1:])
 
-wavelength = constants.speed_of_light/args.freq[0] if "freq" in args else constants.speed_of_light/1E6
-assert wavelength == 299.792458, "freq2wlen: Assertation error."
-if "human" in args and args.human: 
+wavelength = constants.speed_of_light/args.freq[0]
+if args.human: 
   if (wavelength >= 1E3):
     print('%.1f km'%(wavelength / 1E3))
   elif (wavelength >= 1):

@@ -1,3 +1,4 @@
+import sys, os
 from scipy import constants
 
 name        = "freq2wlen"
@@ -25,10 +26,20 @@ flags = [
   }
 ]
 
-args = {}
-wavelength = constants.speed_of_light/args.freq[0] if "freq" in args else constants.speed_of_light/1E6
-assert wavelength == 299.792458, "freq2wlen: Assertation error."
-if "human" in args and args.human: 
+# testing
+class args:
+  freq  = [1E6]
+  human = True
+  debug = True
+if args.debug:
+  wavelength = constants.speed_of_light/args.freq[0]
+  assert wavelength == 299.792458, "freq2wlen: Test failed."
+  sys.stdout = open(os.devnull, 'w')
+
+
+# implementation
+wavelength = constants.speed_of_light/args.freq[0]
+if args.human: 
   if (wavelength >= 1E3):
     print('%.1f km'%(wavelength / 1E3))
   elif (wavelength >= 1):
