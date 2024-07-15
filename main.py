@@ -1,87 +1,88 @@
-import json
+# import json
 import os
 
-cmds = []
-for file in filter(lambda itm: os.path.isfile('cmds/'+itm), os.listdir("cmds")):
-    with open('cmds/'+file) as file:
-        cmds.append(json.loads(file.read()))
-for fold in filter(lambda itm: os.path.isdir('cmds/'+itm), os.listdir("cmds")):
-    with open('cmds/'+fold+'/index.json') as file:
-        cmds.append(json.loads(file.read()))
-        cmds[-1]['cmds'] = []
-    for file in filter(lambda itm: os.path.isfile('cmds/'+fold+'/'+itm) and itm!='index.json', os.listdir('cmds/'+fold)):
-        with open('cmds/'+fold+'/'+file) as file:
-              cmds[-1]['cmds'].append(json.loads(file.read()))
-with open('main.json', 'w') as file:
-    json.dump(cmds, file, indent=4)
+snme = ""
+lnme = ""
+desc = ""
+eplg = []
+frml = []
+refs = []
+modl = []
 
-print("import sys")
-print("import argparse")
-print(" ")
+parg = []
+oarg = []
+flag = []
 
-i = 0
-for cmd in filter(lambda itm: ("cmds" not in itm), cmds):
-    print('%s len(sys.argv)>1 and sys.argv[1] == "%s":'%("if" if i==0 else "elif", cmd['name']))
-    print('\tparser = argparse.ArgumentParser(prog="%s", description="%s", formatter_class=argparse.RawDescriptionHelpFormatter, epilog="%s%s\\n\\n%s%s")'%(cmd['name'],cmd['desc'],'formula:\\n' if cmd['frml'] else '','\\n'.join(cmd['frml']).replace('\\','\\\\'),'references:\\n- ' if cmd['rfrs'] else '','\\n- '.join(cmd['rfrs'])))
-    for prg in cmd['prgs']:
-        nrg = '"%s"'%prg['cunt'] if type(prg['cunt']) == str else '%d'%prg['cunt'] 
-        print('\tparser.add_argument("%s", help="%s", type=%s, nargs=%s)'%(prg['name'], prg['desc'], prg['type'], nrg))
-    for org in cmd['orgs']:
-            nrg = '"%s"'%org['cunt'] if type(org['cunt']) == str else '%d'%org['cunt'] 
-            print('\t\tparser.add_argument("--%s", help="%s", default="%s", type=%s, nargs=%s)'%(org['name'], org['desc'], str(org['dflt']), org['type'], nrg))
-    for flg in cmd['flgs']:
-        print('\tparser.add_argument("--%s", help="%s", action="store_true")'%(flg['name'], flg['desc']))
-    print('\targs = parser.parse_args(sys.argv[2:])')
-    for req in cmd['reqs']:
-        print('\timport %s'%req)
-    for syn in cmd['code']:
-        print('\t%s'%syn)
-    i = i+1
+flds = {
+  "util": {"lnme": "utility", "desc": "Utility functions"}
+}
 
-for cmd in filter(lambda itm: ("cmds" in itm), cmds):
-    print('%s len(sys.argv)>1 and sys.argv[1] == "%s":'%("if" if i==0 else "elif", cmd['name']))
-    desc = cmd['desc']
-    cmds = cmd['cmds']
-    i = 0
-    for cmd in cmds:
-        print('\t%s len(sys.argv)>2 and sys.argv[2] == "%s":'%("if" if i==0 else "elif", cmd['name']))
-        print('\t\tparser = argparse.ArgumentParser(prog="%s", description="%s", formatter_class=argparse.RawDescriptionHelpFormatter, epilog="%s%s\\n\\n%s%s\\n\\n%s%s")'%(cmd['name'],cmd['desc'],'explanation:\\n' if cmd['eplg'] else '','\\n'.join(cmd['eplg']),'formula:\\n' if cmd['frml'] else '','\\n'.join(cmd['frml']),'references:\\n- ' if cmd['rfrs'] else '','\\n- '.join(cmd['rfrs'])))
-        for prg in cmd['prgs']:
-            nrg = '"%s"'%prg['cunt'] if type(prg['cunt']) == str else '%d'%prg['cunt'] 
-            print('\t\tparser.add_argument("%s", help="%s", type=%s, nargs=%s)'%(prg['name'], prg['desc'], prg['type'], nrg))
-        for org in cmd['orgs']:
-            nrg = '"%s"'%org['cunt'] if type(org['cunt']) == str else '%d'%org['cunt'] 
-            print('\t\tparser.add_argument("--%s", help="%s", default="%s", type=%s, nargs=%s)'%(org['name'], org['desc'], str(org['dflt']), org['type'], nrg))
-        for flg in cmd['flgs']:
-            print('\t\tparser.add_argument("--%s", help="%s", action="store_true")'%(flg['name'], flg['desc']))
-        print('\t\targs = parser.parse_args(sys.argv[3:])')
-        for req in cmd['reqs']:
-            print('\t\timport %s'%req)
-        for syn in cmd['code']:
-            print('\t\t%s'%syn)
-        i = i+1
-    print('\telse:')
-    print('\t\tparser = argparse.ArgumentParser(prog="antenna", description="%s")'%desc)
-    for cmd in filter(lambda itm: ("cmds" not in itm), cmds):
-        print('\t\tparser.add_argument("%s", help="[f] %s", type=str, nargs="?")'%(cmd['name'], cmd['desc']))
-    for cmd in filter(lambda itm: ("cmds" in itm), cmds):
-        print('\t\tparser.add_argument("%s", help="[m] %s", type=str, nargs="?")'%(cmd['name'], cmd['desc']))
-    print('\t\tprint(parser.format_help().replace("positional arguments","module/function")', end='')
-    for cmd in cmds:
-        print('.replace("[%s] ","")'%cmd['name'], end="")
-    print('.replace("[%s]","[module/function]"))'%cmds[-1]['name'])
+for fold in filter(lambda item: os.path.isdir('cmds/'+item), os.listdir("cmds2")):
+  # 4 letter version
+  with open("./scripts/4letter/ante.%s.py"%(fold), "w") as file:
+    file.write("from sys import argv\n")
+    file.write("from argparse import ArgumentParser, RawDescriptionHelpFormatter\n")
+    file.write("\n")
+    fncs = []
+    for item in filter(lambda item: os.path.isfile('cmds/'+fold+"/"+item), os.listdir('cmds/'+fold)):
+      with open("cmds/%s/%s"%(fold, item), "r") as fl2e:
+        file_data = fl2e.read()
+        exec(file_data)
+        fncs.append("  %s: %s"%(snme.ljust(4), desc))
+    file.write('pars = ArgumentParser(prog="ante.%s", description="%s", formatter_class=RawDescriptionHelpFormatter, epilog="%s%s")\n'%(fold,flds[fold]["desc"],'functions:\\n' if fncs else '','\\n'.join(fncs)))
+    file.write('args = pars.parse_args(["--help"])')
+  # canonic version
+  with open("./scripts/canonic/antenna.%s.py"%(flds[fold]["lnme"]), "w") as file:
+    file.write("from sys import argv\n")
+    file.write("from argparse import ArgumentParser, RawDescriptionHelpFormatter\n")
+    file.write("\n")
+    fncs = []
+    for item in filter(lambda item: os.path.isfile('cmds/'+fold+"/"+item), os.listdir('cmds/'+fold)):
+      with open("cmds/%s/%s"%(fold, item), "r") as fl2e:
+        file_data = fl2e.read()
+        exec(file_data)
+        fncs.append("  %s: %s"%(lnme.ljust(4), desc))
+    file.write('pars = ArgumentParser(prog="antenna.%s", description="%s", formatter_class=RawDescriptionHelpFormatter, epilog="%s%s")\n'%(flds[fold]["lnme"],flds[fold]["desc"],'functions:\\n' if fncs else '','\\n'.join(fncs)))
+    file.write('args = pars.parse_args(["--help"])')
+  
 
-with open('main.json') as file:
-    cmds = json.loads(file.read())
-print('else:')
-print('\tparser = argparse.ArgumentParser(prog="antenna", description="Antenna Toolkit")')
-for cmd in filter(lambda itm: ("cmds" not in itm), cmds):
-    print('\tparser.add_argument("%s", help="[f] %s", type=str, nargs="?")'%(cmd['name'], cmd['desc']))
-for cmd in filter(lambda itm: ("cmds" in itm), cmds):
-    print('\tparser.add_argument("%s", help="[m] %s", type=str, nargs="?")'%(cmd['name'], cmd['desc']))
-print('\tprint(parser.format_help().replace("positional arguments","module/function")', end='')
-for cmd in cmds:
-    print('.replace("[%s] ","")'%cmd['name'], end="")
-print('.replace("[%s]","[module/function]"))'%cmds[-1]['name'])
-
-os.remove("main.json")
+  for file in filter(lambda item: os.path.isfile('cmds/'+fold+"/"+item), os.listdir('cmds/'+fold)):
+    with open("cmds/%s/%s"%(fold, file), "r") as file:
+      file_data = file.read()
+      exec(file_data)
+      # 4 letter version
+      with open("./scripts/4letter/ante.%s.%s.py"%(fold,snme), "w") as file:
+        file.write("from sys import argv\n")
+        file.write("from argparse import ArgumentParser, RawDescriptionHelpFormatter\n")
+        file.write("\n")
+        file.write(file_data.split("snme")[0])
+        file.write('pars = ArgumentParser(prog="ante.%s.%s", description="%s", formatter_class=RawDescriptionHelpFormatter, epilog="%s%s\\n\\n%s%s\\n\\n%s%s")\n'%(fold,snme,desc,'explanation:\\n' if eplg else '','\\n'.join(eplg), 'formula:\\n' if frml else '','\\n'.join(frml).replace('\\','\\\\'),'references:\\n- ' if refs else '','\\n- '.join(refs)))
+        for item in parg:
+          cont = '"%s"'%item['cont'] if type(item['cont']) == str else '%d'%item['cont']
+          file.write('pars.add_argument("%s", help="%s", type=%s, nargs=%s)\n'%(item['name'], item['desc'], item['type'], cont))
+        for item in oarg:
+          cont = '"%s"'%item['cont'] if type(item['cont']) == str else '%d'%item['cont'] 
+          file.write('pars.add_argument("--%s", help="%s", default="%s", type=%s, nargs=%s)\n'%(item['name'], item['desc'], str(item['default']), item['type'], cont))
+        for item in flag:
+          file.write('pars.add_argument("--%s", help="%s", action="store_true")\n'%(item['name'], item['desc']))
+        file.write('args = pars.parse_args(argv[1:])')
+        file.write("\n")
+        file.write(file_data.split("# implementation")[1])
+      # canonic version
+      with open("./scripts/canonic/antenna.%s.%s.py"%(flds[fold]["lnme"],lnme), "w") as file:
+        file.write("import sys\n")
+        file.write("import argparse\n")
+        file.write("\n")
+        file.write(file_data.split("snme")[0])
+        file.write('pars = argparse.ArgumentParser(prog="antenna.%s.%s", description="%s", formatter_class=argparse.RawDescriptionHelpFormatter, epilog="%s%s\\n\\n%s%s\\n\\n%s%s")\n'%(flds[fold],lnme,desc,'explanation:\\n' if eplg else '','\\n'.join(eplg), 'formula:\\n' if frml else '','\\n'.join(frml).replace('\\','\\\\'),'references:\\n- ' if refs else '','\\n- '.join(refs)))
+        for item in parg:
+          cont = '"%s"'%item['cont'] if type(item['cont']) == str else '%d'%item['cont']
+          file.write('pars.add_argument("%s", help="%s", type=%s, nargs=%s)\n'%(item['name'], item['desc'], item['type'], cont))
+        for item in oarg:
+          cont = '"%s"'%item['cont'] if type(item['cont']) == str else '%d'%item['cont'] 
+          file.write('pars.add_argument("--%s", help="%s", default="%s", type=%s, nargs=%s)\n'%(item['name'], item['desc'], str(item['default']), item['type'], cont))
+        for item in flag:
+          file.write('pars.add_argument("--%s", help="%s", action="store_true")\n'%(item['name'], item['desc']))
+        file.write('args = pars.parse_args(sys.argv[1:])')
+        file.write("\n")
+        file.write(file_data.split("# implementation")[1])

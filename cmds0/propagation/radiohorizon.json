@@ -1,0 +1,29 @@
+{
+  "name": "radiohorizon",
+  "desc": "radio horizon in kilometers [km] for a given height",
+  "eplg": [],
+  "prgs": [
+    {
+      "name": "height",
+      "desc": "height of transmitter/recevier above ground in meters [m]",
+      "type": "float",
+      "cunt": "+"
+    }
+  ],
+  "orgs": [],
+  "flgs": [],
+  "frml": [
+    "R_{rad} &\\\\approx 4.12\\\\times\\\\sqrt{h} [km]"
+  ],
+  "rfrs": [
+    "https://en.wikipedia.org/wiki/Line-of-sight_propagation"
+  ],
+  "reqs": [
+    "numpy"
+  ],
+  "code": [
+    "rhz = 4.12*numpy.sqrt(args.height)",
+    "numpy.set_printoptions(precision=3)",
+    "numpy.savetxt(sys.stdout,rhz,fmt='%.16G')"
+  ]
+}

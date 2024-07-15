@@ -1,0 +1,50 @@
+{
+  "name": "ffdist",
+  "desc": "far-field (Fraunhofer) distance of an antenna or aperture",
+  "eplg": [],
+  "prgs": [
+    {
+      "name": "D",
+      "desc": "maximum cross-sectional size",
+      "type": "float",
+      "cunt": 1
+    },
+    {
+      "name": "freq",
+      "desc": "frequency of interest in Hz",
+      "type": "float",
+      "cunt": 1
+    }
+  ],
+  "orgs": [],
+  "flgs": [
+    {
+      "name": "human",
+      "desc": "human readable output like cm, mm, km"
+    }
+  ],
+  "frml": [
+    "R_{ff} &= Max\\\\left(\\\\dfrac{2D^2}{\\\\lambda},5D,1.6\\\\lambda\\\\right)"
+  ],
+  "rfrs": [
+    "Warren L. Stutzman, Antenna Theory and Design, 3rd Ed., Page 43"
+  ],
+  "reqs": [
+    "scipy.constants as constants"
+  ],
+  "code": [
+    "wle = constants.speed_of_light/args.freq[0]",
+    "rff = max(2*args.D[0]**2/wle, 5*args.D[0], 1.5*wle)",
+    "if args.human:",
+    "\tif (rff >= 1E3):",
+    "\t\tprint('%.1f km'%(rff / 1E3))",
+    "\telif (rff >= 1):",
+    "\t\tprint('%.1f m'%(rff / 1E0))",
+    "\telif (rff >= 1E-2):",
+    "\t\tprint('%.1f cm'%(rff * 1E2))",
+    "\telse:",
+    "\t\tprint('%.1f mm'%(rff*1E3))",
+    "else:",
+    "\tprint('%.16G' %(rff))"
+  ]
+}

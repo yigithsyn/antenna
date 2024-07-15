@@ -1,0 +1,49 @@
+{
+  "name": "pathloss",
+  "desc": "free space path loss",
+  "eplg": [],
+  "prgs": [
+    {
+      "name": "freq",
+      "desc": "frequency of interest in MegaHertz [MHz]",
+      "type": "float",
+      "cunt": 1
+    },
+    {
+      "name": "R",
+      "desc": "range in kilometers [m]",
+      "type": "float",
+      "cunt": 1
+    }
+  ],
+  "orgs": [
+    {
+      "name": "g1",
+      "desc": "gain of transmitter antenna in [dB]",
+      "type": "float",
+      "cunt": 1,
+      "dflt": 0
+    },
+    {
+      "name": "g2",
+      "desc": "gain of receiver antenna in [dB]",
+      "type": "float",
+      "cunt": 1,
+      "dflt": 0
+    }
+  ],
+  "flgs": [],
+  "frml": [
+    "L_P &= 32.45 + 20\\\\log10(fR) - G_1 - G_2 \\\\quad [dB]"
+  ],
+  "rfrs": [
+    "Thomas A. Milligan, Modern Antenna Design, 2nd Ed., Chapter 3, Page 6"
+  ],
+  "reqs": [
+    "math"
+  ],
+  "code": [
+    "pls = 32.45 + 20*math.log10(args.freq[0]*args.R[0]) - args.g1 - args.g2",
+    "print('%.16G' %(pls))"
+  ]
+}

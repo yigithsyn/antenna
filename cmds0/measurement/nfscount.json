@@ -1,0 +1,41 @@
+{
+  "name": "nfscount",
+  "desc": "minimum distance sampling count for near-field antenna measurements",
+  "eplg": [
+    "function returns following outputs respectively:",
+    "  sd: minimum sampling distance",
+    "  ss: sampling start position",
+    "  sf: sampling finish position",
+    "  sc: sampling count"
+  ],
+  "prgs": [
+    {
+      "name": "freq",
+      "desc": "frequency of interest in Hertz [Hz]",
+      "type": "float",
+      "cunt": 1
+    },
+    {
+      "name": "length",
+      "desc": "initial desired sampling length in meters",
+      "type": "float",
+      "cunt": 1
+    }
+  ],
+  "orgs": [],
+  "flgs": [],
+  "frml": [],
+  "rfrs": [],
+  "reqs": [
+    "math",
+    "scipy.constants as constants"
+  ],
+  "code": [
+    "nfs = math.floor(0.5*constants.speed_of_light/args.freq[0]*1E3)",
+    "len = math.ceil(args.length[0]*1E3)",
+    "len = len/2 if len%2==0 else (len+1)/2",
+    "if len%nfs > 0:",
+    "\tlen = len + (nfs-len%nfs)",
+    "print('%d %.3f %.3f %d'%(nfs,-float(len)/1000,+float(len)/1000,2*(len/nfs)+1))"
+  ]
+}

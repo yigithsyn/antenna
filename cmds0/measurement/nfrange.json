@@ -1,0 +1,43 @@
+{
+  "name": "nfrange",
+  "desc": "minimum recommended distance for near-field antenna measurements",
+  "eplg": [],
+  "prgs": [
+    {
+      "name": "freq",
+      "desc": "frequency of interest in Hertz [Hz]",
+      "type": "float",
+      "cunt": "+"
+    }
+  ],
+  "orgs": [],
+  "flgs": [
+    {
+      "name": "human",
+      "desc": "human readable output like mm, cm, m"
+    }
+  ],
+  "frml": [
+    "R_{nf} &= 5\\\\times\\\\lambda = 5\\\\times c_0/f"
+  ],
+  "rfrs": [
+    "IEEE 1720-2012 Recommended Practice for Near-Field Antenna Measurements, Section 5.3.1.4, Page 27"
+  ],
+  "reqs": [
+    "scipy.constants as constants"
+  ],
+  "code": [
+    "nfr = 3*constants.speed_of_light/args.freq[0]",
+    "if args.human: ",
+    "\tif (nfr >= 1E3):",
+    "\t\tprint('%.1f km'%(nfr / 1E3))",
+    "\telif (nfr >= 1):",
+    "\t\tprint('%.1f m'%(nfr / 1E0))",
+    "\telif (nfr >= 1E-2):",
+    "\t\tprint('%.1f cm'%(nfr * 1E2))",
+    "\telse:",
+    "\t\tprint('%.1f mm' %(nfr*1E3))",
+    "else:",
+    "\tprint('%.16G' %(nfr))"
+  ]
+}
