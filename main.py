@@ -1,5 +1,6 @@
 # import json
 import os
+from pathlib import Path
 
 snme = ""
 lnme = ""
@@ -16,6 +17,8 @@ flag = []
 flds = {
   "util": {"lnme": "utility", "desc": "Utility functions"}
 }
+
+Path.mkdir("./scripts/util", parents=True)
 
 for fold in filter(lambda item: os.path.isdir('cmds/'+item), os.listdir("cmds2")):
   # 4 letter version

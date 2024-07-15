@@ -21,7 +21,7 @@ jobs:
         uses: actions/setup-python@v4
         with:
           # Semantic version range syntax or exact version of a Python version
-          python-version: '3.10'
+          python-version: '3.12'
           # Optional - x64 or x86 architecture, defaults to x64
           architecture: 'x64'
       # You can test your matrix by printing the current Python version
@@ -34,30 +34,30 @@ jobs:
       # - name: Generate Script File
       #   run: python main.py
       - name: Generate Script and Write to a File
-        run: python main.py > antenna.py
-      - name: Test Script
-        run: python antenna.py --help
-      - name: Generate Executable
-        run: python -m PyInstaller antenna.py
-      - name: Compress Distribution
-        run: Compress-Archive -Path .\dist\antenna\* -CompressionLevel Fastest -DestinationPath .\antenna.zip
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: true
-          prerelease: true
-      - name: Upload Release Asset
-        id: upload-release-asset 
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: ./antenna.zip
-          asset_name: antenna.zip
-          asset_content_type: application/zip
+        run: python main.py
+      # - name: Test Script
+      #   run: python antenna.py --help
+      # - name: Generate Executable
+      #   run: python -m PyInstaller antenna.py
+      # - name: Compress Distribution
+      #   run: Compress-Archive -Path .\dist\antenna\* -CompressionLevel Fastest -DestinationPath .\antenna.zip
+      # - name: Create Release
+      #   id: create_release
+      #   uses: actions/create-release@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     tag_name: ${{ github.ref }}
+      #     release_name: Release ${{ github.ref }}
+      #     draft: true
+      #     prerelease: true
+      # - name: Upload Release Asset
+      #   id: upload-release-asset 
+      #   uses: actions/upload-release-asset@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+      #     asset_path: ./antenna.zip
+      #     asset_name: antenna.zip
+      #     asset_content_type: application/zip
