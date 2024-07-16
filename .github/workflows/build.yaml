@@ -35,12 +35,12 @@ jobs:
       #   run: python main.py
       - name: Generate Script and Write to a File
         run: python main.py
-      # - name: Test Script
-      #   run: python antenna.py --help
+      - name: Test Script
+        run: ./dist/4letter/ante.util.exe
       # - name: Generate Executable
       #   run: python -m PyInstaller antenna.py
-      # - name: Compress Distribution
-      #   run: Compress-Archive -Path .\dist\antenna\* -CompressionLevel Fastest -DestinationPath .\antenna.zip
+      - name: Compress Distribution
+        run: Compress-Archive -Path .\dist -CompressionLevel Fastest -DestinationPath .\antenna.zip
       # - name: Create Release
       #   id: create_release
       #   uses: actions/create-release@v1
