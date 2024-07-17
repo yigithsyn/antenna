@@ -25,6 +25,40 @@ flds = {
 Path("./scripts/4letter").mkdir(parents=True, exist_ok=True)
 Path("./scripts/canonic").mkdir(parents=True, exist_ok=True)
 
+# 4 letter version
+fncs = []
+with open("./scripts/ante.py", "w") as file:
+  file.write("from sys import argv\n")
+  file.write("from argparse import ArgumentParser, RawDescriptionHelpFormatter\n")
+  file.write("\n")
+  for fold in filter(lambda item: os.path.isdir('cmds/'+item), os.listdir("cmds")):
+    print(fold)
+    fncs.append("  %s: %s"%(fold, flds[fold]["desc"]))
+    file.write('pars = ArgumentParser(prog="ante", description="%s", formatter_class=RawDescriptionHelpFormatter, epilog="%s%s")\n'%("Antenna Toolkit",'functions:\\n' if fncs else '','\\n'.join(fncs)))
+    file.write('args = pars.parse_args(["--help"])')
+PyInstaller.__main__.run([
+  "./scripts/ante.py",
+  '--onefile',
+  '--nowindow',
+  '--distpath', 'dist/4letter'
+])
+# canonic version
+fncs = []
+with open("./scripts/antenna.py", "w") as file:
+  file.write("from sys import argv\n")
+  file.write("from argparse import ArgumentParser, RawDescriptionHelpFormatter\n")
+  file.write("\n")
+  for fold in filter(lambda item: os.path.isdir('cmds/'+item), os.listdir("cmds")):
+    print(fold)
+    fncs.append("  %s: %s"%(fold, flds[fold]["desc"]))
+    file.write('pars = ArgumentParser(prog="antenna", description="%s", formatter_class=RawDescriptionHelpFormatter, epilog="%s%s")\n'%("Antenna Toolkit",'functions:\\n' if fncs else '','\\n'.join(fncs)))
+    file.write('args = pars.parse_args(["--help"])')
+PyInstaller.__main__.run([
+  "./scripts/antenna.py",
+  '--onefile',
+  '--nowindow',
+  '--distpath', 'dist/canonic'
+])
 for fold in filter(lambda item: os.path.isdir('cmds/'+item), os.listdir("cmds")):
   # 4 letter version
   with open("./scripts/4letter/ante.%s.py"%(fold), "w") as file:
