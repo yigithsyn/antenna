@@ -4,6 +4,9 @@ from numpy import asarray
 snme = "wl2f"
 lnme = "wavelengthToFrequency"
 desc = "wavelength to frequency conversion"
+auth = [
+  "Huseyin YIGIT, yigit.hsyn@gmail.com"
+]
 eplg = []
 frml = ["f &= c0/\\lambda"]
 refs = []
@@ -37,7 +40,7 @@ if args.debg:
 args.wlen = getattr(args, "wavelength") if getattr(args, "wavelength") else []
 args.humn = getattr(args, "human") if getattr(args, "human") else False 
 
-freq = speed_of_light / asarray(args.wlen)
+freq = speed_of_light / asarray(args.wlen) # type: ignore
 for item in freq:
   if args.humn :
     if (item >= 1E12):
