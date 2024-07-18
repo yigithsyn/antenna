@@ -1,27 +1,60 @@
-from sys import argv, stdin
+import sys, os
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
+import scipy
+import numpy
 
-from sys import stdin
-from os import isatty
-from scipy.constants import speed_of_light
-from numpy import asarray
+snme = "ante.util.fr2w"                                   # short name
+lnme = "antenna.utility.frequencyToWavelength"            # long name
+desc = "frequency to wavelength conversion"               # description
+fncs = []                                                 # functions
+expl = []                                                 # explanation
+frml = []                                                 # formulas 
+auth = [                                                  # authors
+  "Huseyin YIGIT, yigit.hsyn@gmail.com"
+]
+refs = []                                                 # references
+parg = [                                                  # positional arguments
+  {"name": "frequency", "desc": "frequency in Hertz [Hz]", "type": float, "cont": "+"}
+]
+oarg = []                                                 # optional arguments
+flag = [                                                  # flags
+  {"name": "human", "desc": "human readable output like cm, mm, km"}
+]
 
+# preparation for parsing 
+flst = []
+for i in range(len(fncs)):
+  flst.append("  %s: %s"%(fncs[i]["snme"].ljust(4),fncs[i]["desc"]))
+for i in range(len(frml)):
+  frml[i] = "  " + frml[i]
+for i in range(len(auth)):
+  auth[i] = "  " + auth[i]
 
-pars = ArgumentParser(prog="ante.util.fr2w", description="frequency to wavelength conversion", formatter_class=RawDescriptionHelpFormatter, epilog="\n\nformula:\n  \\lambda &= c0/f\n\n\n\nauthor(s):\n  Huseyin YIGIT, yigit.hsyn@gmail.com")
-pars.add_argument("frequency", help="frequency in Hertz [Hz]", type=float, nargs="+")
-pars.add_argument("--human", help="human readable output like cm, mm, km", action="store_true")
-args = pars.parse_args(argv[1:])
+# argument parsing 
+pars = ArgumentParser(prog=snme, 
+                      description="%s%s%s"%(
+                        desc,
+                        '\n\nfunctions:\n' if fncs else '','\n'.join(flst)),
+                      formatter_class=RawDescriptionHelpFormatter, 
+                      epilog="%s%s%s%s%s%s"%(
+                        '\n\nexplanation:\n' if expl else '','\n'.join(expl),
+                        '\n\nformula:\n' if frml else '','\n'.join(frml),
+                        '\n\nauthor(s):\n' if auth else '','\n'.join(auth)))
+for item in parg:
+  pars.add_argument(item["name"], help=item["desc"], type=item["type"], nargs=item["cont"])
+for item in oarg:
+  pars.add_argument("--"+item["name"], help=item["desc"], type=item["type"], default=item["default"], nargs=item["cont"])
+for item in flag:
+  pars.add_argument("--"+item['name'], help=item['desc'], action="store_true")
+if not os.isatty(sys.stdin.fileno()): 
+  for line in sys.stdin:
+    sys.argv = sys.argv[:1] + [line] + sys.argv[1:]
+args = pars.parse_args(sys.argv[1:])
 
-pipe = []
-if not isatty(stdin.fileno()): 
-  for line in stdin:
-    pipe.append(line)
-args.freq = pipe if pipe else getattr(args, "frequency") if getattr(args, "frequency") else []
-args.humn = getattr(args, "human") if getattr(args, "human") else False
-
-wlen = speed_of_light / asarray(args.freq, dtype="float") # type: ignore
+# implementation
+wlen = scipy.constants.speed_of_light / numpy.asarray(getattr(args,"frequency"), dtype="float")
 for item in wlen:
-  if args.humn :
+  if getattr(args,"human") :
     if item >= 1e3:
       print("%.1f km" % (item / 1e3))
     elif item >= 1:
