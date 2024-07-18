@@ -41,7 +41,7 @@ with open("./scripts/ante.py", "w") as file:
   file.write('args = pars.parse_args(["--help"])')
 PyInstaller.__main__.run([
   "./scripts/ante.py",
-  '--onefile',
+  '--onedir',
   '--nowindow',
   '--distpath', 'dist/4letter'
 ])
@@ -58,7 +58,7 @@ with open("./scripts/antenna.py", "w") as file:
   file.write('args = pars.parse_args(["--help"])')
 PyInstaller.__main__.run([
   "./scripts/antenna.py",
-  '--onefile',
+  '--onedir',
   '--nowindow',
   '--distpath', 'dist/canonic'
 ])
@@ -81,7 +81,7 @@ for fold in filter(lambda item: os.path.isdir('cmds/'+item), os.listdir("cmds"))
     file.write('args = pars.parse_args(["--help"])')
   PyInstaller.__main__.run([
     "./scripts/4letter/ante.%s.py"%(fold),
-    '--onefile',
+    '--onedir',
     '--nowindow',
     '--distpath', 'dist/4letter'
   ])
@@ -103,7 +103,7 @@ for fold in filter(lambda item: os.path.isdir('cmds/'+item), os.listdir("cmds"))
     file.write('args = pars.parse_args(["--help"])')
   PyInstaller.__main__.run([
   "./scripts/canonic/antenna.%s.py"%(flds[fold]["lnme"]),
-  '--onefile',
+  '--onedir',
   '--nowindow',
   '--distpath', 'dist/canonic'
   ])
@@ -136,7 +136,7 @@ for fold in filter(lambda item: os.path.isdir('cmds/'+item), os.listdir("cmds"))
         file.write(file_data.split("# implementation")[1])
       PyInstaller.__main__.run([
           "./scripts/4letter/ante.%s.%s.py"%(fold,snme),
-          '--onefile',
+          '--onedir',
           '--nowindow',
           '--distpath', 'dist/4letter'
       ])
@@ -160,7 +160,7 @@ for fold in filter(lambda item: os.path.isdir('cmds/'+item), os.listdir("cmds"))
         file.write(file_data.split("# implementation")[1])
       PyInstaller.__main__.run([
           "./scripts/canonic/antenna.%s.%s.py"%(flds[fold]["lnme"],lnme),
-          '--onefile',
+          '--onedir',
           '--nowindow',
           '--distpath', 'dist/canonic'
       ])

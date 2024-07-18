@@ -1,12 +1,12 @@
+from sys import stdin
+from os import isatty
 from scipy.constants import speed_of_light
 from numpy import asarray
 
 snme = "wl2f"
 lnme = "wavelengthToFrequency"
 desc = "wavelength to frequency conversion"
-auth = [
-  "Huseyin YIGIT, yigit.hsyn@gmail.com"
-]
+auth = ["Huseyin YIGIT, yigit.hsyn@gmail.com"]
 eplg = []
 frml = ["f &= c0/\\lambda"]
 refs = []
@@ -37,10 +37,14 @@ if args.debg:
   # stdout = open(devnull, "w")
 
 # implementation
+pipe = []
+if not isatty(stdin.fileno()): 
+  for line in stdin:
+    pipe.append(line)
 args.wlen = getattr(args, "wavelength") if getattr(args, "wavelength") else []
 args.humn = getattr(args, "human") if getattr(args, "human") else False 
 
-freq = speed_of_light / asarray(args.wlen) # type: ignore
+freq = speed_of_light / asarray(args.wlen, dtype="float") # type: ignore
 for item in freq:
   if args.humn :
     if (item >= 1E12):
