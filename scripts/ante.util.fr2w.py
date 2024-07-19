@@ -8,13 +8,15 @@ lnme = "antenna.utility.frequencyToWavelength"            # long name
 desc = "frequency to wavelength conversion"               # description
 fncs = []                                                 # functions
 expl = []                                                 # explanation
-frml = []                                                 # formulas 
+frml = [                                                  # formulas 
+  "\\lambda &= c0/f"
+]
 auth = [                                                  # authors
   "Huseyin YIGIT, yigit.hsyn@gmail.com"
 ]
 refs = []                                                 # references
 parg = [                                                  # positional arguments
-  {"name": "frequency", "desc": "frequency in Hertz [Hz]", "type": float, "cont": "+"}
+  {"name": "frequency", "desc": "frequency in Hertz [Hz]", "type": float, "cont": 1}
 ]
 oarg = []                                                 # optional arguments
 flag = [                                                  # flags
@@ -54,7 +56,7 @@ args = pars.parse_args(sys.argv[1:])
 # implementation
 wlen = scipy.constants.speed_of_light / numpy.asarray(getattr(args,"frequency"), dtype="float")
 for item in wlen:
-  if getattr(args,"human") :
+  if getattr(args,"human"):
     if item >= 1e3:
       print("%.1f km" % (item / 1e3))
     elif item >= 1:
