@@ -3,13 +3,13 @@ from argparse import ArgumentParser, RawDescriptionHelpFormatter
 import scipy
 import numpy
 
-snme = "ante.util.gm2s"                                   # short name
-lnme = "antenna.utility.gammaToSwr"                       # long name
-desc = "reflection coefficient (gamma) to voltage standing wave ratio (vswr) conversion" # description             
+snme = "ante.util.sw2g"                                   # short name
+lnme = "antenna.utility.swrToGamma"                       # long name
+desc = "voltage standing wave ratio (vswr) to reflection coefficient (gamma) conversion" # description             
 fncs = []                                                 # functions
 expl = []                                                 # explanation
 frml = [                                                  # formulas 
- "SWR &= \\dfrac{1+|\\Gamma|}{1-|\\Gamma|}"
+ "\\Gamma &= \\dfrac{1-SWR}{1+SWR}"
 ]
 auth = [                                                  # authors
   "Huseyin YIGIT, yigit.hsyn@gmail.com"
@@ -19,11 +19,11 @@ refs = [                                                  # references
   "https://en.wikipedia.org/wiki/Standing_wave_ratio"
 ]
 parg = [                                                  # positional arguments
-  {"name": "gamma", "desc": "reflection coefficient", "type": float, "cont": 1}
+  {"name": "swr", "desc": "standing wave ratio", "type": float, "cont": 1}
 ]
 oarg = []                                                 # optional arguments
 flag = [                                                  # flags
-  {"name": "db", "desc": "input reflection coefficient in dB"}
+  {"name": "db", "desc": "output reflection coefficient in dB"}
 ]
 
 # preparation for parsing 
@@ -60,5 +60,5 @@ if not os.isatty(sys.stdin.fileno()):
 args = pars.parse_args(sys.argv[1:])
 
 # implementation
-vswr = numpy.power(10,numpy.asarray(getattr(args,"gamma"),dtype="float")/20) if getattr(args,"db") else numpy.asarray(getattr(args,"gamma"),dtype="float") 
-numpy.savetxt(sys.stdout,(1+vswr)/(1-vswr),fmt='%.3G')
+gmml = (numpy.asarray(getattr(args,"swr"))-1)/(numpy.asarray(getattr(args,"swr"))+1)
+numpy.savetxt(sys.stdout,(20*numpy.log10(gmml) if getattr(args,"db") else gmml),fmt='%.03G')
