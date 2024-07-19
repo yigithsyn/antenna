@@ -31,6 +31,8 @@ for i in range(len(frml)):
   frml[i] = "  " + frml[i]
 for i in range(len(auth)):
   auth[i] = "  " + auth[i]
+for i in range(len(refs)):
+  refs[i] = "  - " + refs[i]
 
 # argument parsing 
 pars = ArgumentParser(prog=snme, 
@@ -38,10 +40,11 @@ pars = ArgumentParser(prog=snme,
                         desc,
                         '\n\nfunctions:\n' if fncs else '','\n'.join(flst)),
                       formatter_class=RawDescriptionHelpFormatter, 
-                      epilog="%s%s%s%s%s%s"%(
+                      epilog="%s%s%s%s%s%s%s%s"%(
                         '\n\nexplanation:\n' if expl else '','\n'.join(expl),
                         '\n\nformula:\n' if frml else '','\n'.join(frml),
-                        '\n\nauthor(s):\n' if auth else '','\n'.join(auth)))
+                        '\n\nauthor:\n' if auth else '','\n'.join(auth),
+                        '\n\nreferences:\n' if refs else '','\n'.join(refs)))
 for item in parg:
   pars.add_argument(item["name"], help=item["desc"], type=item["type"], nargs=item["cont"])
 for item in oarg:
