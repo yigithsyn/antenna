@@ -29,6 +29,10 @@ for i in range(len(auth)):
   auth[i] = "  " + auth[i]
 
 # argument parsing 
+class ArgumentParser(argparse.ArgumentParser):
+    def error(self, message):
+        self.print_help(sys.stderr)
+        exit(2)
 pars = ArgumentParser(prog=snme, 
                       description="%s%s%s"%(
                         desc,

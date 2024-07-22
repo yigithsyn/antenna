@@ -1,5 +1,6 @@
 import sys, os
-from argparse import ArgumentParser, RawDescriptionHelpFormatter
+from argparse import ArgumentParser, RawDescriptionHelpFormatter, ArgumentError
+import argparse
 import scipy
 import numpy
 
@@ -42,6 +43,10 @@ for i in range(len(refs)):
   refs[i] = "  - " + refs[i]
 
 # argument parsing 
+class ArgumentParser(argparse.ArgumentParser):
+    def error(self, message):
+        self.print_help(sys.stderr)
+        exit(2)
 pars = ArgumentParser(prog=snme, 
                       description="%s%s%s"%(
                         desc,
@@ -63,9 +68,10 @@ if not os.isatty(sys.stdin.fileno()):
     sys.argv = sys.argv[:1] + [line.rstrip()] + sys.argv[1:]
 args = pars.parse_args(sys.argv[1:])
 
+
+
 # implementation
 nfr = 5*scipy.constants.speed_of_light / numpy.asarray(getattr(args,"frequency"), dtype="float")
-print(args.human)
 if getattr(args,"human"):
   for item in nfr:
     if item >= 1e3:
