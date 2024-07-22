@@ -1,27 +1,28 @@
 import sys, os, argparse
-import scipy
-import numpy
+import math
 
-snme = "ante.util.fr2w"                                   # short name
-lnme = "antenna.utility.frequencyToWavelength"            # long name
-desc = "frequency to wavelength conversion"               # description
+snme = "ante.meas.mren"                                   # short name
+lnme = "antenna.measurement.minimumRadiusEnclosed"        # long name
+desc = "calculates minimum radius enclosed (MRE) of the antenna for spherical near-field (SNF) measurements" # description             
 fncs = []                                                 # functions
-expl = []                                                 # explanation
+expl = [                                                  # explanation
+  "Calculation is unitless so output is the same quantity of inputs."
+]
 frml = [                                                  # formulas 
-  "\\lambda &= c0/f"
+ "mre &= \\sqrt{dx^2+dy^2+dz^2}"
 ]
 auth = [                                                  # authors
   "Huseyin YIGIT, yigit.hsyn@gmail.com"
 ]
 refs = []                                                 # references
 parg = [                                                  # positional arguments
-  {"name": "frequency", "desc": "frequency in Hertz [Hz]", "type": float, "cont": "+"}
+  {"name": "dx", "desc": "max displacement from rotation center along x-axis", "type": float, "cont": 1},
+  {"name": "dy", "desc": "max displacement from rotation center along y-axis", "type": float, "cont": 1},
+  {"name": "dz", "desc": "max displacement from rotation center along z-axis", "type": float, "cont": 1}
 ]
 oarg = []                                                 # optional arguments
-flag = [                                                  # flags
-  {"name": "human", "desc": "human readable output like cm, mm, km"}
-]
-
+flag = []                                                 # flags
+  
 # preparation for parsing 
 flst = []
 for i in range(len(fncs)):
@@ -38,6 +39,7 @@ for i in range(len(refs)):
 # argument parsing 
 class ArgumentParser(argparse.ArgumentParser):
     def error(self, message):
+        print("error: %s"%message)
         self.print_help(sys.stderr)
         exit(2)
 pars = ArgumentParser(prog=lnme,  
@@ -58,20 +60,12 @@ for item in flag:
   pars.add_argument("--"+item['name'], help=item['desc'], action="store_true")
 if not os.isatty(sys.stdin.fileno()): 
   for line in reversed(list(sys.stdin)):
-    sys.argv = sys.argv[:1] + [line.rstrip()] + sys.argv[1:]
+    print(line.rstrip().split())
+    # sys.argv = sys.argv[:1] + line.rstrip().split() + sys.argv[1:]
+    args = pars.parse_args((sys.argv[:1] + line.rstrip().split() + sys.argv[1:])[1:])
+    print('%.16G' %(math.sqrt(getattr(args,"dx")[0]**2+getattr(args,"dy")[0]**2+getattr(args,"dz")[0]**2)))
+  exit(0)
 args = pars.parse_args(sys.argv[1:])
 
 # implementation
-wlen = scipy.constants.speed_of_light / numpy.asarray(getattr(args,"frequency"), dtype="float")
-for item in wlen:
-  if getattr(args,"human"):
-    if item >= 1e3:
-      print("%.1f km" % (item / 1e3))
-    elif item >= 1:
-      print("%.1f m" % (item / 1e0))
-    elif item >= 1e-2:
-      print("%.1f cm" % (item * 1e2))
-    else:
-      print("%.1f mm" % (item * 1e3))
-  else:
-    print("%.16G" % (item))
+print('%.16G' %(math.sqrt(getattr(args,"dx")[0]**2+getattr(args,"dy")[0]**2+getattr(args,"dz")[0]**2)))

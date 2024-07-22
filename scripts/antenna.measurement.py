@@ -32,7 +32,7 @@ class ArgumentParser(argparse.ArgumentParser):
     def error(self, message):
         self.print_help(sys.stderr)
         exit(2)
-pars = ArgumentParser(prog=snme, 
+pars = ArgumentParser(prog=lnme,  
                       description="%s%s%s"%(
                         desc,
                         '\n\nfunctions:\n' if fncs else '','\n'.join(flst)),
