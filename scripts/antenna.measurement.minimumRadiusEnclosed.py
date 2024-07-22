@@ -59,9 +59,7 @@ for item in oarg:
 for item in flag:
   pars.add_argument("--"+item['name'], help=item['desc'], action="store_true")
 if not os.isatty(sys.stdin.fileno()): 
-  for line in reversed(list(sys.stdin)):
-    print(line.rstrip().split())
-    # sys.argv = sys.argv[:1] + line.rstrip().split() + sys.argv[1:]
+  for line in list(sys.stdin):
     args = pars.parse_args((sys.argv[:1] + line.rstrip().split() + sys.argv[1:])[1:])
     print('%.16G' %(math.sqrt(getattr(args,"dx")[0]**2+getattr(args,"dy")[0]**2+getattr(args,"dz")[0]**2)))
   exit(0)
