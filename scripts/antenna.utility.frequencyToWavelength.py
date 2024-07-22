@@ -1,5 +1,4 @@
-import sys, os
-from argparse import ArgumentParser, RawDescriptionHelpFormatter
+import sys, os, argparse
 import scipy
 import numpy
 
@@ -45,7 +44,7 @@ pars = ArgumentParser(prog=snme,
                       description="%s%s%s"%(
                         desc,
                         '\n\nfunctions:\n' if fncs else '','\n'.join(flst)),
-                      formatter_class=RawDescriptionHelpFormatter, 
+                      formatter_class=argparse.RawDescriptionHelpFormatter, 
                       epilog="%s%s%s%s%s%s%s%s"%(
                         '\n\nexplanation:\n' if expl else '','\n'.join(expl),
                         '\n\nformula:\n' if frml else '','\n'.join(frml),

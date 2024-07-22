@@ -37,7 +37,7 @@ with open("./scripts/ante.py", "w") as file:
     print(fold)
     fncs.append("  %s: %s"%(fold, flds[fold]["desc"]))
   print('\\n'.join(eplg))
-  file.write('pars = ArgumentParser(prog="ante", description="%s", formatter_class=RawDescriptionHelpFormatter, epilog="%s%s\\n\\n%s%s")\n'%(desc,'functions:\\n' if fncs else '','\\n'.join(fncs),'author(s):\\n' if auth else '','\\n'.join(auth)))
+  file.write('pars = ArgumentParser(prog="ante", description="%s", formatter_class=argparse.RawDescriptionHelpFormatter, epilog="%s%s\\n\\n%s%s")\n'%(desc,'functions:\\n' if fncs else '','\\n'.join(fncs),'author(s):\\n' if auth else '','\\n'.join(auth)))
   file.write('args = pars.parse_args(["--help"])')
 PyInstaller.__main__.run([
   "./scripts/ante.py",
@@ -54,7 +54,7 @@ with open("./scripts/antenna.py", "w") as file:
   for fold in filter(lambda item: os.path.isdir('cmds/'+item), os.listdir("cmds")):
     print(fold)
     fncs.append("  %s: %s"%(fold, flds[fold]["desc"]))
-  file.write('pars = ArgumentParser(prog="antenna", description="%s", formatter_class=RawDescriptionHelpFormatter, epilog="%s%s\\n\\n%s%s")\n'%(desc,'functions:\\n' if fncs else '','\\n'.join(fncs),'author(s):\\n' if auth else '','\\n'.join(auth)))
+  file.write('pars = ArgumentParser(prog="antenna", description="%s", formatter_class=argparse.RawDescriptionHelpFormatter, epilog="%s%s\\n\\n%s%s")\n'%(desc,'functions:\\n' if fncs else '','\\n'.join(fncs),'author(s):\\n' if auth else '','\\n'.join(auth)))
   file.write('args = pars.parse_args(["--help"])')
 PyInstaller.__main__.run([
   "./scripts/antenna.py",
@@ -77,7 +77,7 @@ for fold in filter(lambda item: os.path.isdir('cmds/'+item), os.listdir("cmds"))
     auth = [
       "  Huseyin YIGIT, yigit.hsyn@gmail.com"
     ]
-    file.write('pars = ArgumentParser(prog="ante.%s", description="%s", formatter_class=RawDescriptionHelpFormatter, epilog="%s%s\\n\\n%s%s")\n'%(fold,flds[fold]["desc"],'functions:\\n' if fncs else '','\\n'.join(fncs),'author(s):\\n' if auth else '','\\n'.join(auth)))
+    file.write('pars = ArgumentParser(prog="ante.%s", description="%s", formatter_class=argparse.RawDescriptionHelpFormatter, epilog="%s%s\\n\\n%s%s")\n'%(fold,flds[fold]["desc"],'functions:\\n' if fncs else '','\\n'.join(fncs),'author(s):\\n' if auth else '','\\n'.join(auth)))
     file.write('args = pars.parse_args(["--help"])')
   PyInstaller.__main__.run([
     "./scripts/4letter/ante.%s.py"%(fold),
@@ -99,7 +99,7 @@ for fold in filter(lambda item: os.path.isdir('cmds/'+item), os.listdir("cmds"))
     auth = [
       "  Huseyin YIGIT, yigit.hsyn@gmail.com"
     ]
-    file.write('pars = ArgumentParser(prog="antenna.%s", description="%s", formatter_class=RawDescriptionHelpFormatter, epilog="%s%s\\n\\n%s%s")\n'%(flds[fold]["lnme"],flds[fold]["desc"],'functions:\\n' if fncs else '','\\n'.join(fncs),'author(s):\\n' if auth else '','\\n'.join(auth)))
+    file.write('pars = ArgumentParser(prog="antenna.%s", description="%s", formatter_class=argparse.RawDescriptionHelpFormatter, epilog="%s%s\\n\\n%s%s")\n'%(flds[fold]["lnme"],flds[fold]["desc"],'functions:\\n' if fncs else '','\\n'.join(fncs),'author(s):\\n' if auth else '','\\n'.join(auth)))
     file.write('args = pars.parse_args(["--help"])')
   PyInstaller.__main__.run([
   "./scripts/canonic/antenna.%s.py"%(flds[fold]["lnme"]),
@@ -122,7 +122,7 @@ for fold in filter(lambda item: os.path.isdir('cmds/'+item), os.listdir("cmds"))
         file.write("from argparse import ArgumentParser, RawDescriptionHelpFormatter\n")
         file.write("\n")
         file.write(file_data.split("snme")[0])
-        file.write('pars = ArgumentParser(prog="ante.%s.%s", description="%s", formatter_class=RawDescriptionHelpFormatter, epilog="%s%s\\n\\n%s%s\\n\\n%s%s\\n\\n%s%s")\n'%(fold,snme,desc,'explanation:\\n' if eplg else '','\\n'.join(eplg), 'formula:\\n' if frml else '','\\n'.join(frml).replace('\\','\\\\'),'references:\\n- ' if refs else '','\\n- '.join(refs),'author(s):\\n' if auth else '','\\n'.join(auth)))
+        file.write('pars = ArgumentParser(prog="ante.%s.%s", description="%s", formatter_class=argparse.RawDescriptionHelpFormatter, epilog="%s%s\\n\\n%s%s\\n\\n%s%s\\n\\n%s%s")\n'%(fold,snme,desc,'explanation:\\n' if eplg else '','\\n'.join(eplg), 'formula:\\n' if frml else '','\\n'.join(frml).replace('\\','\\\\'),'references:\\n- ' if refs else '','\\n- '.join(refs),'author(s):\\n' if auth else '','\\n'.join(auth)))
         for item in parg:
           cont = '"%s"'%item['cont'] if type(item['cont']) == str else '%d'%item['cont']
           file.write('pars.add_argument("%s", help="%s", type=%s, nargs=%s)\n'%(item['name'], item['desc'], item['type'], cont))
