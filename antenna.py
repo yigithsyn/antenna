@@ -20,7 +20,7 @@ if len(sys.argv)>1 and sys.argv[1] == "freq2wlen":
 	else:
 		print('%.16G' %(wle))
 elif len(sys.argv)>1 and sys.argv[1] == "gamma2swr":
-	parser = argparse.ArgumentParser(prog="gamma2swr", description="reflection coefficient (gamma) to standing wave ratio (swr) conversion", formatter_class=argparse.RawDescriptionHelpFormatter, epilog="formula:\nSWR &= \\\\dfrac{1+|\\\\Gamma|}{1-|\\\\Gamma|}\n\nreferences:\n- https://en.wikipedia.org/wiki/Reflection_coefficient\n- https://en.wikipedia.org/wiki/Standing_wave_ratio")
+	parser = argparse.ArgumentParser(prog="gamma2swr", description="reflection coefficient (gamma) to standing wave ratio (swr) conversion", formatter_class=argparse.RawDescriptionHelpFormatter, epilog="formula:\nSWR &= \\\\dfrac{1+|\\\\Gamma|}{1-|\\\\Gamma|}\n\nreferences:\n- [Reflection coefficient - Wikipedia](https://en.wikipedia.org/wiki/Reflection_coefficient)\n- [Standing wave ratio - Wikipedia](https://en.wikipedia.org/wiki/Standing_wave_ratio)")
 	parser.add_argument("gamma", help="reflection coefficient", type=float, nargs="+")
 	parser.add_argument("--db", help="input reflection coefficient in dB", action="store_true")
 	args = parser.parse_args(sys.argv[2:])
@@ -29,7 +29,7 @@ elif len(sys.argv)>1 and sys.argv[1] == "gamma2swr":
 	numpy.set_printoptions(precision=3)
 	numpy.savetxt(sys.stdout,(1+gml)/(1-gml),fmt='%.16G')
 elif len(sys.argv)>1 and sys.argv[1] == "swr2gamma":
-	parser = argparse.ArgumentParser(prog="swr2gamma", description="standing wave ratio (swr) to reflection coefficient (gamma) conversion", formatter_class=argparse.RawDescriptionHelpFormatter, epilog="formula:\n\\\\Gamma &= \\\\dfrac{1-SWR}{1+SWR}\n\nreferences:\n- https://en.wikipedia.org/wiki/Reflection_coefficient\n- https://en.wikipedia.org/wiki/Standing_wave_ratio")
+	parser = argparse.ArgumentParser(prog="swr2gamma", description="standing wave ratio (swr) to reflection coefficient (gamma) conversion", formatter_class=argparse.RawDescriptionHelpFormatter, epilog="formula:\n\\\\Gamma &= \\\\dfrac{1-SWR}{1+SWR}\n\nreferences:\n- [Reflection coefficient - Wikipedia](https://en.wikipedia.org/wiki/Reflection_coefficient)\n- [Standing wave ratio - Wikipedia](https://en.wikipedia.org/wiki/Standing_wave_ratio)")
 	parser.add_argument("swr", help="standing wave ration", type=float, nargs="+")
 	parser.add_argument("--db", help="output reflection coefficient in dB", action="store_true")
 	args = parser.parse_args(sys.argv[2:])

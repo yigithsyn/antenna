@@ -16,7 +16,7 @@ auth = [                                                  # authors
 ]
 refs = []                                                 # references
 parg = [                                                  # positional arguments
-  {"name": "frequency", "desc": "frequency in Hertz [Hz]", "type": float, "cont": 1}
+  {"name": "frequency", "desc": "frequency in Hertz [Hz]", "type": float, "cont": "+"}
 ]
 oarg = []                                                 # optional arguments
 flag = [                                                  # flags
@@ -29,6 +29,8 @@ for i in range(len(fncs)):
   flst.append("  %s: %s"%(fncs[i]["snme"].ljust(4),fncs[i]["desc"]))
 for i in range(len(frml)):
   frml[i] = "  " + frml[i]
+for i in range(len(expl)):
+  expl[i] = "  " + expl[i]
 for i in range(len(auth)):
   auth[i] = "  " + auth[i]
 for i in range(len(refs)):
@@ -52,8 +54,8 @@ for item in oarg:
 for item in flag:
   pars.add_argument("--"+item['name'], help=item['desc'], action="store_true")
 if not os.isatty(sys.stdin.fileno()): 
-  for line in sys.stdin:
-    sys.argv = sys.argv[:1] + [line] + sys.argv[1:]
+  for line in reversed(list(sys.stdin)):
+    sys.argv = sys.argv[:1] + [line.rstrip()] + sys.argv[1:]
 args = pars.parse_args(sys.argv[1:])
 
 # implementation

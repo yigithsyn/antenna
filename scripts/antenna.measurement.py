@@ -1,14 +1,11 @@
 import sys, os
 from argparse import ArgumentParser, RawDescriptionHelpFormatter
 
-snme = "ante.util"                                        # short name
-lnme = "antenna.utility"                                  # long name
-desc = "Utility functions"                                # description
+snme = "ante.meas"                                        # short name
+lnme = "antenna.measurement"                              # long name
+desc = "Antenna Measurement support functions"            # description
 fncs = [                                                  # functions
-  {"snme": "fr2w", "lnme": "frequencyToWavelength", "desc": "frequency to wavelength conversion"},
-  {"snme": "wl2f", "lnme": "wavelengthToFrequency", "desc": "wavelength to frequency conversion"},
-  {"snme": "gm2s", "lnme": "gammaToSwr",            "desc": "reflection coefficient (gamma) to voltage standing wave ratio (vswr) conversion"}
-  {"snme": "sw2g", "lnme": "swrToGamma",            "desc": "voltage standing wave ratio (vswr) to reflection coefficient (gamma) conversion"}
+  {"snme": "mnfd", "lnme": "miniumumNearFieldDistance", "desc": "minimum recommended distance for near-field antenna measurements"},
 ]
 expl = []                                                 # explanation
 frml = []                                                 # formulas 

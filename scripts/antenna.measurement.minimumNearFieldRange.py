@@ -3,24 +3,29 @@ from argparse import ArgumentParser, RawDescriptionHelpFormatter
 import scipy
 import numpy
 
-snme = "ante.util.wl2f"                                   # short name
-lnme = "antenna.utility.wavelengthToFrequency"            # long name
-desc = "wavelength to frequency conversion"               # description
+snme = "ante.meas.mnfr"                                   # short name
+lnme = "antenna.measurement.miniumumNearFieldDistance"    # long name
+desc = "minimum recommended distance for near-field antenna measurements in meters" # description             
 fncs = []                                                 # functions
-expl = []                                                 # explanation
+expl = [                                                  # explanation
+  "Standard suggests to choose between 3 or 5 wavelength.",
+  "In order to ensure copuling effect, 5 wavelength distance is choosen and implemented."
+]
 frml = [                                                  # formulas 
-  "f &= c0/\\lambda"
+ "R_{nf} &= 5\\times\\lambda = 5\\times c_0/f"
 ]
 auth = [                                                  # authors
   "Huseyin YIGIT, yigit.hsyn@gmail.com"
 ]
-refs = []                                                 # references
+refs = [                                                  # references
+  "[IEEE 1720-2012 Recommended Practice for Near-Field Antenna Measurements, Section 5.3.1.4, Page 27](https://ieeexplore.ieee.org/document/6375745)",
+]
 parg = [                                                  # positional arguments
-  {"name": "wavelength", "desc": "wavelength in meters [m]", "type": float, "cont": "+"}
+  {"name": "frequency", "desc": "frequency of interest in Hertz [Hz]", "type": float, "cont": "+"}
 ]
 oarg = []                                                 # optional arguments
 flag = [                                                  # flags
-  {"name": "human", "desc": "human readable output like kHz, MHz, GHz"}
+  {"name": "human", "desc": "human readable output like mm, cm, m"}
 ]
 
 # preparation for parsing 
@@ -59,16 +64,17 @@ if not os.isatty(sys.stdin.fileno()):
 args = pars.parse_args(sys.argv[1:])
 
 # implementation
-freq = scipy.constants.speed_of_light / numpy.asarray(getattr(args,"wavelength"), dtype="float")
-for item in freq:
-  if getattr(args,"human"):
-    if (item >= 1E12):
-      print('%.1f THz'%(item / 1E12))
-    elif (item >= 1E9):
-      print('%.1f GHz'%(item / 1E9))
-    elif (item >= 1E6):
-      print('%.1f MHz'%(item / 1E6))
-    elif (item >= 1E3):
-      print('%.1f kHz' %(item/1E3))
-  else:
-    print('%.1f Hz' %(item))
+nfr = 5*scipy.constants.speed_of_light / numpy.asarray(getattr(args,"frequency"), dtype="float")
+print(args.human)
+if getattr(args,"human"):
+  for item in nfr:
+    if item >= 1e3:
+      print("%.1f km" % (item / 1e3))
+    elif item >= 1:
+      print("%.1f m" % (item / 1e0))
+    elif item >= 1e-2:
+      print("%.1f cm" % (item * 1e2))
+    else:
+      print("%.1f mm" % (item * 1e3))
+else:
+  numpy.savetxt(sys.stdout,nfr,fmt='%.6G')
