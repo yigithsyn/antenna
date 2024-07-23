@@ -76,7 +76,7 @@ outs = 0.5*scipy.constants.speed_of_light / numpy.asarray(freq, dtype="float")
 # output
 tabl = prettytable.PrettyTable()
 tabl.set_style(prettytable.MARKDOWN)
-tabl.field_names = ["Frequency [Hz]", "Sampling Length [mm]",]
+tabl.field_names = ["Frequency [Hz]", "Sampling Length",]
 if "--human" in sys.argv:
   for i in range(len(outs)):
     if outs[i][0] >= 1e3:
