@@ -1,29 +1,26 @@
 import sys, os, argparse
-import numpy
+import scipy, numpy
 
-snme = "ante.util.gm2s"                                   # short name
-lnme = "antenna.utility.gammaToSwr"                       # long name
-desc = "reflection coefficient (gamma) to voltage standing wave ratio (vswr) conversion" # description             
+snme = "ante.meas.msdi"                                   # short name
+lnme = "antenna.measurement.minimumSamplingDistance"      # long name
+desc = "minimum sampling distance for near-field antenna measurements" # description             
 fncs = []                                                 # functions
 expl = []                                                 # explanation
 frml = [                                                  # formulas 
- "SWR &= \\dfrac{1+|\\Gamma|}{1-|\\Gamma|}"
+ "R_{nf} &= \\lambda/2 = c_0/(2\\timesf)"
 ]
 auth = [                                                  # authors
   "Huseyin YIGIT, yigit.hsyn@gmail.com"
 ]
-refs = [                                                  # references
-  "[Reflection coefficient - Wikipedia](https://en.wikipedia.org/wiki/Reflection_coefficient)",
-  "[Standing wave ratio - Wikipedia](https://en.wikipedia.org/wiki/Standing_wave_ratio)"
-]
+refs = []                                                 # references
 parg = [                                                  # positional arguments
-  {"name": "gamma", "desc": "reflection coefficient", "type": float, "cont": "+"}
+  {"name": "frequency", "desc": "frequency of interest in Hertz [Hz]", "type": float, "cont": "+"}
 ]
 oarg = []                                                 # optional arguments
 flag = [                                                  # flags
-  {"name": "db", "desc": "input reflection coefficient in dB"}
+  {"name": "human", "desc": "human readable output like mm, cm, m"}
 ]
-
+  
 # preparation for parsing 
 flst = []                                                 # function list
 for i in range(len(fncs)):
@@ -65,5 +62,16 @@ if not os.isatty(sys.stdin.fileno()):
 args = pars.parse_args(sys.argv[1:])
 
 # implementation
-vswr = numpy.power(10,numpy.asarray(getattr(args,"gamma"),dtype="float")/20) if getattr(args,"db") else numpy.asarray(getattr(args,"gamma"),dtype="float") 
-numpy.savetxt(sys.stdout,(1+vswr)/(1-vswr),fmt='%.3G')
+msdi = 0.5*scipy.constants.speed_of_light / numpy.asarray(getattr(args,"frequency"), dtype="float")
+if getattr(args,"human"):
+  for item in msdi:
+    if item >= 1e3:
+      print("%.1f km" % (item / 1e3))
+    elif item >= 1:
+      print("%.1f m" % (item / 1e0))
+    elif item >= 1e-2:
+      print("%.1f cm" % (item * 1e2))
+    else:
+      print("%.1f mm" % (item * 1e3))
+else:
+  numpy.savetxt(sys.stdout,msdi,fmt='%.6G')

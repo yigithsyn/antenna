@@ -33,6 +33,7 @@ for i in range(len(auth)):
 # argument parsing 
 class ArgumentParser(argparse.ArgumentParser):
     def error(self, message):
+        print("error: %s\n"%message)
         self.print_help(sys.stderr)
         exit(2)
 pars = ArgumentParser(prog=lnme,  

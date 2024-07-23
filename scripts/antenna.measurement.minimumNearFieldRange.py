@@ -43,6 +43,7 @@ for i in range(len(refs)):
 # argument parsing 
 class ArgumentParser(argparse.ArgumentParser):
     def error(self, message):
+        print("error: %s\n"%message)
         self.print_help(sys.stderr)
         exit(2)
 pars = ArgumentParser(prog=lnme,  
@@ -66,12 +67,10 @@ if not os.isatty(sys.stdin.fileno()):
     sys.argv = sys.argv[:1] + [line.rstrip()] + sys.argv[1:]
 args = pars.parse_args(sys.argv[1:])
 
-
-
 # implementation
-nfr = 5*scipy.constants.speed_of_light / numpy.asarray(getattr(args,"frequency"), dtype="float")
+mnfr = 5*scipy.constants.speed_of_light / numpy.asarray(getattr(args,"frequency"), dtype="float")
 if getattr(args,"human"):
-  for item in nfr:
+  for item in mnfr:
     if item >= 1e3:
       print("%.1f km" % (item / 1e3))
     elif item >= 1:
@@ -81,4 +80,4 @@ if getattr(args,"human"):
     else:
       print("%.1f mm" % (item * 1e3))
 else:
-  numpy.savetxt(sys.stdout,nfr,fmt='%.6G')
+  numpy.savetxt(sys.stdout,mnfr,fmt='%.6G')
