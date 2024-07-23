@@ -23,7 +23,7 @@ flag = [                                                  # flags
 ]
 
 # preparation for parsing 
-flst = []
+flst = []                                                 # function list
 for i in range(len(fncs)):
   flst.append("  %s: %s"%(fncs[i]["snme"].ljust(4),fncs[i]["desc"]))
 for i in range(len(frml)):
@@ -63,8 +63,8 @@ args = pars.parse_args(sys.argv[1:])
 
 # implementation
 wlen = scipy.constants.speed_of_light / numpy.asarray(getattr(args,"frequency"), dtype="float")
-for item in wlen:
-  if getattr(args,"human"):
+if getattr(args,"human"):
+  for item in wlen:
     if item >= 1e3:
       print("%.1f km" % (item / 1e3))
     elif item >= 1:
@@ -73,5 +73,6 @@ for item in wlen:
       print("%.1f cm" % (item * 1e2))
     else:
       print("%.1f mm" % (item * 1e3))
-  else:
-    print("%.16G" % (item))
+else:
+  numpy.savetxt(sys.stdout,wlen,fmt='%.16G')
+

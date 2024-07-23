@@ -23,7 +23,7 @@ flag = [                                                  # flags
 ]
 
 # preparation for parsing 
-flst = []
+flst = []                                                 # function list
 for i in range(len(fncs)):
   flst.append("  %s: %s"%(fncs[i]["snme"].ljust(4),fncs[i]["desc"]))
 for i in range(len(frml)):
@@ -63,8 +63,8 @@ args = pars.parse_args(sys.argv[1:])
 
 # implementation
 freq = scipy.constants.speed_of_light / numpy.asarray(getattr(args,"wavelength"), dtype="float")
-for item in freq:
-  if getattr(args,"human"):
+if getattr(args,"human"):
+  for item in freq:
     if (item >= 1E12):
       print('%.1f THz'%(item / 1E12))
     elif (item >= 1E9):
@@ -73,5 +73,5 @@ for item in freq:
       print('%.1f MHz'%(item / 1E6))
     elif (item >= 1E3):
       print('%.1f kHz' %(item/1E3))
-  else:
-    print('%.1f Hz' %(item))
+else:
+  numpy.savetxt(sys.stdout,freq,fmt='%.1G')

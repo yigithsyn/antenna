@@ -17,7 +17,7 @@ oarg = []                                                 # optional arguments
 flag = []                                                 # flags
 
 # preparation for parsing 
-flst = []
+flst = []                                                 # function list
 for i in range(len(fncs)):
   flst.append("  %s: %s"%(fncs[i]["snme"].ljust(4),fncs[i]["desc"]))
 for i in range(len(frml)):
