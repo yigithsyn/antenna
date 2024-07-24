@@ -1,4 +1,4 @@
-import sys, os, argparse
+import sys, os, argparse, prettytable
 import numpy
 
 snme = "ante.util.sw2g"                                   # short name
@@ -21,7 +21,8 @@ parg = [                                                  # positional arguments
 ]
 oarg = []                                                 # optional arguments
 flag = [                                                  # flags
-  {"name": "db", "desc": "output reflection coefficient in dB"}
+  {"name": "db",    "desc": "output reflection coefficient in dB"},
+  {"name": "human", "desc": "human readable output"}
 ]
 
 # preparation for parsing 
@@ -59,11 +60,32 @@ for item in oarg:
   pars.add_argument("--"+item["name"], help=item["desc"], type=item["type"], default=item["default"], nargs=item["cont"])
 for item in flag:
   pars.add_argument("--"+item['name'], help=item['desc'], action="store_true")
-if not os.isatty(sys.stdin.fileno()): 
-  for line in reversed(list(sys.stdin)):
-    sys.argv = sys.argv[:1] + [line.rstrip()] + sys.argv[1:]
-args = pars.parse_args(sys.argv[1:])
+parg = [] 
+if not os.isatty(sys.stdin.fileno()):
+  for line in list(sys.stdin):
+    parg.append(line.rstrip().split() + list(filter(lambda item: '-' in item or '--' in item, sys.argv[1:])))
+    pars.parse_args(parg[-1])
+else:
+  parg.append(sys.argv[1:])
+  pars.parse_args(parg[-1])
 
 # implementation
-gmml = (numpy.asarray(getattr(args,"swr"))-1)/(numpy.asarray(getattr(args,"swr"))+1)
-numpy.savetxt(sys.stdout,(20*numpy.log10(gmml) if getattr(args,"db") else gmml),fmt='%.03G')
+out0 = []
+inp0 = []
+for item in parg:
+  args = pars.parse_args(item)
+  inp0.append(getattr(args,"swr"))
+out0 = (numpy.asarray(inp0)-1)/(numpy.asarray(inp0)+1)
+out0 = 20*numpy.log10(out0) if "--db" in sys.argv else out0
+
+# output
+tabl = prettytable.PrettyTable()
+tabl.set_style(prettytable.MARKDOWN)
+tabl.field_names = ["(V)SWR", "Gamma (S11)"+(" [dB]"if "--db" in sys.argv else "")]
+if "--human" in sys.argv:
+  for i in range(len(out0)):
+    for j in range(len(out0[i])):
+      tabl.add_row(["%s"%parg[i][j],"%.3f"%out0[i][j]])
+  print("\n%s"%tabl)
+else:
+  numpy.savetxt(sys.stdout,out0,fmt='%.3G', delimiter="\n")

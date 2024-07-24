@@ -23,7 +23,7 @@ parg = [                                                  # positional arguments
 ]
 oarg = []                                                 # optional arguments
 flag = [                                                  # flags
-  {"name": "human", "desc": "human readable tabulated output"}
+  {"name": "human", "desc": "human readable output"}
 ]
   
 # preparation for parsing 
