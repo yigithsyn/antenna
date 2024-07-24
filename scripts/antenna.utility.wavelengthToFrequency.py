@@ -77,7 +77,7 @@ out0 = scipy.constants.speed_of_light / numpy.asarray(inp0)
 # output
 tabl = prettytable.PrettyTable()
 tabl.set_style(prettytable.MARKDOWN)
-tabl.field_names = ["Frequency [Hz]", "Frequency",]
+tabl.field_names = ["Wavelength [m]", "Frequency",]
 if "--human" in sys.argv:
   for i in range(len(out0)):
     for j in range(len(out0[i])):
