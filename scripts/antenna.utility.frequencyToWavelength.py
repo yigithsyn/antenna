@@ -1,4 +1,4 @@
-import sys, os, argparse
+import sys, os, argparse, prettytable
 import scipy
 import numpy
 
@@ -57,23 +57,41 @@ for item in oarg:
   pars.add_argument("--"+item["name"], help=item["desc"], type=item["type"], default=item["default"], nargs=item["cont"])
 for item in flag:
   pars.add_argument("--"+item['name'], help=item['desc'], action="store_true")
-if not os.isatty(sys.stdin.fileno()): 
-  for line in reversed(list(sys.stdin)):
-    sys.argv = sys.argv[:1] + [line.rstrip()] + sys.argv[1:]
-args = pars.parse_args(sys.argv[1:])
+parg = [] 
+if not os.isatty(sys.stdin.fileno()):
+  for line in list(sys.stdin):
+    parg.append(line.rstrip().split() + list(filter(lambda item: '-' in item or '--' in item, sys.argv[1:])))
+    pars.parse_args(parg[-1])
+else:
+  parg.append(sys.argv[1:])
+  pars.parse_args(parg[-1])
 
 # implementation
-wlen = scipy.constants.speed_of_light / numpy.asarray(getattr(args,"frequency"), dtype="float")
-if getattr(args,"human"):
-  for item in wlen:
-    if item >= 1e3:
-      print("%.1f km" % (item / 1e3))
-    elif item >= 1:
-      print("%.1f m" % (item / 1e0))
-    elif item >= 1e-2:
-      print("%.1f cm" % (item * 1e2))
-    else:
-      print("%.1f mm" % (item * 1e3))
+out0 = []
+inp0 = []
+for item in parg:
+  args = pars.parse_args(item)
+  inp0.append(getattr(args,"frequency"))
+out0 = scipy.constants.speed_of_light / numpy.asarray(inp0)
+
+# output
+tabl = prettytable.PrettyTable()
+tabl.set_style(prettytable.MARKDOWN)
+tabl.field_names = ["Frequency [Hz]", "Wavelength",]
+if "--human" in sys.argv:
+  for i in range(len(out0)):
+    for j in range(len(out0[i])):
+      if out0[i][j] >= 1e3:
+        pstr = "%.1f km" % (out0[i][j] / 1e3)
+      elif out0[i][j] >= 1:
+        pstr = "%.1f m" % (out0[i][j] / 1e0)
+      elif out0[i][j] >= 1e-2:
+        pstr = "%.1f cm" % (out0[i][j] * 1e2)
+      else:
+        pstr = "%.1f mm" % (out0[i][j] * 1e3)
+      tabl.add_row(["%s"%parg[i][j],"%s"%pstr])
+  print("\n%s"%tabl)
 else:
-  numpy.savetxt(sys.stdout,wlen,fmt='%.16G')
+  numpy.savetxt(sys.stdout,out0,fmt='%.16G',delimiter="\n")
+
 

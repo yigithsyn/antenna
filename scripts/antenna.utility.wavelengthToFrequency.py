@@ -1,4 +1,4 @@
-import sys, os, argparse
+import sys, os, argparse, prettytable
 import scipy
 import numpy
 
@@ -57,22 +57,42 @@ for item in oarg:
   pars.add_argument("--"+item["name"], help=item["desc"], type=item["type"], default=item["default"], nargs=item["cont"])
 for item in flag:
   pars.add_argument("--"+item['name'], help=item['desc'], action="store_true")
-if not os.isatty(sys.stdin.fileno()): 
-  for line in reversed(list(sys.stdin)):
-    sys.argv = sys.argv[:1] + [line.rstrip()] + sys.argv[1:]
-args = pars.parse_args(sys.argv[1:])
+parg = [] 
+if not os.isatty(sys.stdin.fileno()):
+  for line in list(sys.stdin):
+    parg.append(line.rstrip().split() + list(filter(lambda item: '-' in item or '--' in item, sys.argv[1:])))
+    pars.parse_args(parg[-1])
+else:
+  parg.append(sys.argv[1:])
+  pars.parse_args(parg[-1])
 
 # implementation
-freq = scipy.constants.speed_of_light / numpy.asarray(getattr(args,"wavelength"), dtype="float")
-if getattr(args,"human"):
-  for item in freq:
-    if (item >= 1E12):
-      print('%.1f THz'%(item / 1E12))
-    elif (item >= 1E9):
-      print('%.1f GHz'%(item / 1E9))
-    elif (item >= 1E6):
-      print('%.1f MHz'%(item / 1E6))
-    elif (item >= 1E3):
-      print('%.1f kHz' %(item/1E3))
+out0 = []
+inp0 = []
+for item in parg:
+  args = pars.parse_args(item)
+  inp0.append(getattr(args,"wavelength"))
+out0 = scipy.constants.speed_of_light / numpy.asarray(inp0)
+
+# output
+tabl = prettytable.PrettyTable()
+tabl.set_style(prettytable.MARKDOWN)
+tabl.field_names = ["Frequency [Hz]", "Frequency",]
+if "--human" in sys.argv:
+  for i in range(len(out0)):
+    for j in range(len(out0[i])):
+      if (out0[i][j] >= 1E12):
+        pstr = '%.1f THz'%(out0[i][j] / 1E12)
+      elif (out0[i][j] >= 1E9):
+        pstr = '%.1f GHz'%(out0[i][j] / 1E9)
+      elif (out0[i][j] >= 1E6):
+        pstr = '%.1f MHz'%(out0[i][j] / 1E6)
+      elif (out0[i][j] >= 1E3):
+        pstr = '%.1f kHz' %(out0[i][j]/1E3)
+      else:
+        pstr = '%.1f Hz' %(out0[i][j]/1E3)
+      tabl.add_row(["%s"%parg[i][j],"%s"%pstr])
+  print("\n%s"%tabl)
 else:
-  numpy.savetxt(sys.stdout,freq,fmt='%.1G')
+  numpy.savetxt(sys.stdout,out0,fmt='%.1G',delimiter="\n")
+
