@@ -66,28 +66,29 @@ else:
   pars.parse_args(parg[-1])
 
 # implementation
-outs = []
-freq = []
+out0 = []
+inp0 = []
 for item in parg:
   args = pars.parse_args(item)
-  freq.append(getattr(args,"frequency"))
-outs = 0.5*scipy.constants.speed_of_light / numpy.asarray(freq, dtype="float")
+  inp0.append(getattr(args,"frequency"))
+out0 = 0.5*scipy.constants.speed_of_light / numpy.asarray(inp0, dtype="float")
 
 # output
 tabl = prettytable.PrettyTable()
 tabl.set_style(prettytable.MARKDOWN)
 tabl.field_names = ["Frequency [Hz]", "Sampling Length",]
 if "--human" in sys.argv:
-  for i in range(len(outs)):
-    if outs[i][0] >= 1e3:
-      pstr = "%.1f km" % (outs[i][0] / 1e3)
-    elif outs[i][0] >= 1:
-      pstr = "%.1f m" % (outs[i][0] / 1e0)
-    elif outs[i][0] >= 1e-2:
-      pstr = "%.1f cm" % (outs[i][0] * 1e2)
-    else:
-      pstr = "%.1f mm" % (outs[i][0] * 1e3)
-    tabl.add_row(["%s"%parg[i][0],"%s"%pstr])
+  for i in range(len(out0)):
+    for j in range(len(out0[i])):
+      if out0[i][j] >= 1e3:
+        pstr = "%.1f km" % (out0[i][j] / 1e3)
+      elif out0[i][j] >= 1:
+        pstr = "%.1f m" % (out0[i][j] / 1e0)
+      elif out0[i][j] >= 1e-2:
+        pstr = "%.1f cm" % (out0[i][j] * 1e2)
+      else:
+        pstr = "%.1f mm" % (out0[i][j] * 1e3)
+      tabl.add_row(["%s"%parg[i][j],"%s"%pstr])
   print("\n%s"%tabl)
 else:
-  numpy.savetxt(sys.stdout,outs,fmt='%.6G')
+  numpy.savetxt(sys.stdout,out0,fmt='%.6G',delimiter="\n")

@@ -1,5 +1,5 @@
-import sys, os, argparse
-import scipy, math, prettytable
+import sys, os, argparse, prettytable
+import scipy, math
 
 snme = "ante.meas.nfsc"                                   # short name
 lnme = "antenna.measurement.nearFieldSamplingCount"       # long name
