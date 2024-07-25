@@ -26,8 +26,6 @@ flag = [
   {"name": "human", "desc": "human readable output"}
 ]
   
-
-
 # argument parsing 
 tmpl = ""
 with open("templates/argument_parsing.py", "r") as file:
