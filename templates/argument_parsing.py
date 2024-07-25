@@ -16,7 +16,7 @@ pars = ArgumentParser(prog=lnme,
 for item in parg:
   pars.add_argument(item["name"], help=item["desc"], type=item["type"], nargs=item["cont"])
 for item in oarg:
-  pars.add_argument("--"+item["name"], help=item["desc"], type=item["type"], default=item["default"], nargs=item["cont"])
+  pars.add_argument("--"+item["name"], help=item["desc"], type=item["type"], default=item["dflt"], nargs=item["cont"])
 for item in flag:
   pars.add_argument("--"+item['name'], help=item['desc'], action="store_true")
 parg = [] 
