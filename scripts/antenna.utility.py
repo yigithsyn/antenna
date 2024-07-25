@@ -4,15 +4,17 @@ snme = "ante.util"
 lnme = "antenna.utility"                                  
 desc = "Utility functions"                                
 fncs = [                                                  
-  {"snme": "fr2w", "lnme": "frequencyToWavelength", "desc": "frequency to wavelength conversion"},
-  {"snme": "wl2f", "lnme": "wavelengthToFrequency", "desc": "wavelength to frequency conversion"},
-  {"snme": "gm2s", "lnme": "gammaToSwr",            "desc": "reflection coefficient (gamma) to voltage standing wave ratio (vswr) conversion"},
-  {"snme": "sw2g", "lnme": "swrToGamma",            "desc": "voltage standing wave ratio (vswr) to reflection coefficient (gamma) conversion"}
-]
-auth = [                                                  
-  "Huseyin YIGIT, yigit.hsyn@gmail.com"
-]
+  {"snme": "fr2w", "lnme": "frequencyToWavelength", "desc": "frequency to wavelength conversion"}
+.append({"snme": "wl2f", "lnme": "wavelengthToFrequency", "desc": "wavelength to frequency conversion"}
+.append({"snme": "gm2s", "lnme": "gammaToSwr",            "desc": "reflection coefficient (gamma) to voltage standing wave ratio (vswr) conversion"}
+.append({"snme": "sw2g", "lnme": "swrToGamma",            "desc": "voltage standing wave ratio (vswr) to reflection coefficient (gamma) conversion"})
+auth.append("Huseyin YIGIT, yigit.hsyn@gmail.com")
 
+# prepare arguments
+tmpl = ""
+with open("templates/prepare_arguments.py", "r") as file:
+  tmpl = "".join(file.readlines())
+exec(tmpl)
 
 # argument parsing 
 class ArgumentParser(argparse.ArgumentParser):

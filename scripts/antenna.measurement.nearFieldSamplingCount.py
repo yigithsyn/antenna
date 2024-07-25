@@ -1,32 +1,31 @@
 import sys, os, argparse, prettytable
 import scipy, math
 
+# definitions
+# arguments
 tmpl = ""
-with open("templates/initials.py", "r") as file:
+with open("templates/arguments.py", "r") as file:
   tmpl = "".join(file.readlines())
 exec(tmpl)
 
 snme = "ante.meas.nfps"                                   
 lnme = "antenna.measurement.nearFieldPlanarSampling"      
 desc = "near-field planar antenna measurement sampling count"                 
-expl = [                                                  
-  "function returns following outputs respectively:",
-  "  calculated sampling length",
-  "  sampling start position (zero centered)",
-  "  sampling finish position (zero centered)",
-  "  sampling count"
-]
-auth = [                                                  
-  "Huseyin YIGIT, yigit.hsyn@gmail.com"
-]
-parg = [                                                  
-  {"name": "frequency", "desc": "frequency of interest in Hertz [Hz]",           "type": float, "cont": 1},
-  {"name": "length",    "desc": "initial desired sampling length in meters [m]", "type": float, "cont": 1},
-]
-flag = [                                                  
-  {"name": "human", "desc": "human readable output"}
-]
-  
+expl.append("function returns following outputs respectively:")
+expl.append("  calculated sampling length")
+expl.append("  sampling start position (zero centered)")
+expl.append("  sampling finish position (zero centered)")
+expl.append("  sampling count")
+auth.append("Huseyin YIGIT, yigit.hsyn@gmail.com")
+parg.append({"name": "frequency", "desc": "frequency of interest in Hertz [Hz]",           "type": float, "cont": 1})
+parg.append({"name": "length",    "desc": "initial desired sampling length in meters [m]", "type": float, "cont": 1})
+flag.append({"name": "human", "desc": "human readable output"})
+
+# prepare arguments
+tmpl = ""
+with open("templates/prepare_arguments.py", "r") as file:
+  tmpl = "".join(file.readlines())
+exec(tmpl)
 
 # argument parsing 
 tmpl = ""

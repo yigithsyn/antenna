@@ -1,7 +1,9 @@
 import sys, os, argparse
 
+# definitions
+# arguments
 tmpl = ""
-with open("templates/initials.py", "r") as file:
+with open("templates/arguments.py", "r") as file:
   tmpl = "".join(file.readlines())
 exec(tmpl)
 
@@ -10,9 +12,7 @@ lnme = "antenna.propagation"
 desc = "Electormagnetic wave propagation functions"       
 fncs = [                                                  
 ]
-auth = [                                                  
-  "Huseyin YIGIT, yigit.hsyn@gmail.com"
-]
+auth.append("Huseyin YIGIT, yigit.hsyn@gmail.com")
 
 # preparation for parsing 
 flst = []                                                 
@@ -24,6 +24,12 @@ for i in range(len(expl)):
   expl[i] = "  " + expl[i]
 for i in range(len(auth)):
   auth[i] = "  " + auth[i]
+
+# prepare arguments
+tmpl = ""
+with open("templates/prepare_arguments.py", "r") as file:
+  tmpl = "".join(file.readlines())
+exec(tmpl)
 
 # argument parsing 
 class ArgumentParser(argparse.ArgumentParser):

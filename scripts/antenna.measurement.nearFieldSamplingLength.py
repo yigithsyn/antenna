@@ -1,28 +1,25 @@
 import sys, os, argparse, prettytable
 import scipy, numpy
 
+# arguments
 tmpl = ""
-with open("templates/initials.py", "r") as file:
+with open("templates/arguments.py", "r") as file:
   tmpl = "".join(file.readlines())
 exec(tmpl)
 
 snme = "ante.meas.nfsl"                                   
 lnme = "antenna.measurement.nearFieldSamplingLength"      
 desc = "minimum sampling distance for near-field antenna measurements"              
-frml = [                                                  
- "\\Delta &= \\lambda/2 = c_0/(2\\timesf)"
-]
-auth = [                                                  
-  "Huseyin YIGIT, yigit.hsyn@gmail.com"
-]
-parg = [                                                  
-  {"name": "frequency", "desc": "frequency of interest in Hertz [Hz]", "type": float, "cont": "+"}
-]
-flag = [                                                  
-  {"name": "human", "desc": "human readable output"}
-]
+frml.append("\\Delta &= \\lambda/2 = c_0/(2\\timesf)")
+auth.append("Huseyin YIGIT, yigit.hsyn@gmail.com")
+parg.append({"name": "frequency", "desc": "frequency of interest in Hertz [Hz]", "type": float, "cont": "+"})
+flag.append({"name": "human", "desc": "human readable output"})
   
-
+# prepare arguments
+tmpl = ""
+with open("templates/prepare_arguments.py", "r") as file:
+  tmpl = "".join(file.readlines())
+exec(tmpl)
 
 # argument parsing 
 tmpl = ""

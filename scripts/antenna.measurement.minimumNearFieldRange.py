@@ -2,33 +2,28 @@ import sys, os, argparse, prettytable
 import scipy
 import numpy
 
+# arguments
 tmpl = ""
-with open("templates/initials", "r") as file:
+with open("templates/arguments.py", "r") as file:
   tmpl = "".join(file.readlines())
 exec(tmpl)
 
 snme = "ante.meas.mnfr"                                   
 lnme = "antenna.measurement.miniumumNearFieldRange"       
 desc = "minimum recommended distance for near-field antenna measurements in meters"              
-expl = [                                                  
-  "Standard suggests to choose between 3 or 5 wavelength.",
-  "In order to ensure copuling effect, 5 wavelength distance is choosen and implemented."
-]
-frml = [                                                  
- "R_{nf} &= 5\\times\\lambda = 5\\times c_0/f"
-]
-auth = [                                                  
-  "Huseyin YIGIT, yigit.hsyn@gmail.com"
-]
-refs = [                                                  
-  "[IEEE 1720-2012 Recommended Practice for Near-Field Antenna Measurements, Section 5.3.1.4, Page 27](https://ieeexplore.ieee.org/document/6375745)",
-]
-parg = [                                                  
-  {"name": "frequency", "desc": "frequency of interest in Hertz [Hz]", "type": float, "cont": "+"}
-]
-flag = [                                                  
-  {"name": "human", "desc": "human readable output"}
-]
+expl.append("Standard suggests to choose between 3 or 5 wavelength.")
+expl.append("In order to ensure copuling effect, 5 wavelength distance is choosen and implemented.")
+frml.append("R_{nf} &= 5\\times\\lambda = 5\\times c_0/f")
+auth.append("Huseyin YIGIT, yigit.hsyn@gmail.com")
+refs.append("[IEEE 1720-2012 Recommended Practice for Near-Field Antenna Measurements, Section 5.3.1.4, Page 27](https://ieeexplore.ieee.org/document/6375745)")
+parg.append({"name": "frequency", "desc": "frequency of interest in Hertz [Hz]", "type": float, "cont": "+"})
+flag.append({"name": "human", "desc": "human readable output"})
+
+# prepare arguments
+tmpl = ""
+with open("templates/prepare_arguments.py", "r") as file:
+  tmpl = "".join(file.readlines())
+exec(tmpl)
 
 # argument parsing 
 tmpl = ""

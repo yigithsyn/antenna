@@ -1,7 +1,9 @@
 import sys, os, argparse
 
+# definitions
+# arguments
 tmpl = ""
-with open("templates/initials.py", "r") as file:
+with open("templates/arguments.py", "r") as file:
   tmpl = "".join(file.readlines())
 exec(tmpl)
 
@@ -9,12 +11,15 @@ snme = "ante"
 lnme = "antenna"                                          
 desc = "Antenna Toolkit"                                  
 fncs = [                                                  
-  {"snme": "util", "lnme": "utility",     "desc": "Utility functions"},
-  {"snme": "meas", "lnme": "measurement", "desc": "Measurement support functions"}
-]
-auth = [                                                  
-  "Huseyin YIGIT, yigit.hsyn@gmail.com"
-]
+  {"snme": "util", "lnme": "utility",     "desc": "Utility functions"}
+.append({"snme": "meas", "lnme": "measurement", "desc": "Measurement support functions"})
+auth.append("Huseyin YIGIT, yigit.hsyn@gmail.com")
+
+# prepare arguments
+tmpl = ""
+with open("templates/prepare_arguments.py", "r") as file:
+  tmpl = "".join(file.readlines())
+exec(tmpl)
 
 # argument parsing 
 class ArgumentParser(argparse.ArgumentParser):

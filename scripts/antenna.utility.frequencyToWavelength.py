@@ -2,28 +2,25 @@ import sys, os, argparse, prettytable
 import scipy
 import numpy
 
+# arguments
 tmpl = ""
-with open("templates/initials.py", "r") as file:
+with open("templates/arguments.py", "r") as file:
   tmpl = "".join(file.readlines())
 exec(tmpl)
 
 snme = "ante.util.fr2w"                                   
 lnme = "antenna.utility.frequencyToWavelength"            
 desc = "frequency to wavelength conversion"               
-frml = [                                                  
-  "\\lambda &= c0/f"
-]
-auth = [                                                  
-  "Huseyin YIGIT, yigit.hsyn@gmail.com"
-]
-parg = [                                                  
-  {"name": "frequency", "desc": "frequency in Hertz [Hz]", "type": float, "cont": "+"}
-]
-flag = [                                                  
-  {"name": "human", "desc": "human readable output"}
-]
+frml.append("\\lambda &= c0/f")
+auth.append("Huseyin YIGIT, yigit.hsyn@gmail.com")
+parg.append({"name": "frequency", "desc": "frequency in Hertz [Hz]", "type": float, "cont": "+"})
+flag.append({"name": "human", "desc": "human readable output"})
 
-
+# prepare arguments
+tmpl = ""
+with open("templates/prepare_arguments.py", "r") as file:
+  tmpl = "".join(file.readlines())
+exec(tmpl)
 
 # argument parsing 
 tmpl = ""

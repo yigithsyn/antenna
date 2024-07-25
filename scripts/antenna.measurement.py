@@ -1,7 +1,9 @@
 import sys, os, argparse
 
+# definitions
+# arguments
 tmpl = ""
-with open("templates/initials.py", "r") as file:
+with open("templates/arguments.py", "r") as file:
   tmpl = "".join(file.readlines())
 exec(tmpl)
 
@@ -9,14 +11,17 @@ snme = "ante.meas"
 lnme = "antenna.measurement"                              
 desc = "Antenna Measurement support functions"            
 fncs = [                                                  
-  {"snme": "mnfr", "lnme": "miniumumNearFieldRange",  "desc": "minimum recommended distance for near-field antenna measurements"},
-  {"snme": "mren", "lnme": "minimumRadiusEnclosed",   "desc": "calculates minimum radius enclosed (MRE) of the antenna for spherical near-field (SNF) measurements"},
-  {"snme": "nfps", "lnme": "nearFieldPlanarSampling", "desc": "near-field planar antenna measurement sampling count"},
-  {"snme": "nfsl", "lnme": "nearFieldSamplingLength", "desc": "minimum sampling distance for near-field antenna measurements"},
-]
-auth = [                                                  
-  "Huseyin YIGIT, yigit.hsyn@gmail.com"
-]
+  {"snme": "mnfr", "lnme": "miniumumNearFieldRange",  "desc": "minimum recommended distance for near-field antenna measurements"}
+.append({"snme": "mren", "lnme": "minimumRadiusEnclosed",   "desc": "calculates minimum radius enclosed (MRE) of the antenna for spherical near-field (SNF) measurements"}
+.append({"snme": "nfps", "lnme": "nearFieldPlanarSampling", "desc": "near-field planar antenna measurement sampling count"}
+.append({"snme": "nfsl", "lnme": "nearFieldSamplingLength", "desc": "minimum sampling distance for near-field antenna measurements"}})
+auth.append("Huseyin YIGIT, yigit.hsyn@gmail.com")
+
+# prepare arguments
+tmpl = ""
+with open("templates/prepare_arguments.py", "r") as file:
+  tmpl = "".join(file.readlines())
+exec(tmpl)
 
 # argument parsing 
 class ArgumentParser(argparse.ArgumentParser):

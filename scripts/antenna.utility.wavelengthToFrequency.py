@@ -2,26 +2,25 @@ import sys, os, argparse, prettytable
 import scipy
 import numpy
 
+# arguments
 tmpl = ""
-with open("templates/initials.py", "r") as file:
+with open("templates/arguments.py", "r") as file:
   tmpl = "".join(file.readlines())
 exec(tmpl)
 
 snme = "ante.util.wl2f"                                   
 lnme = "antenna.utility.wavelengthToFrequency"            
 desc = "wavelength to frequency conversion"               
-frml = [                                                  
-  "f &= c0/\\lambda"
-]
-auth = [                                                  
-  "Huseyin YIGIT, yigit.hsyn@gmail.com"
-]
-parg = [                                                  
-  {"name": "wavelength", "desc": "wavelength in meters [m]", "type": float, "cont": "+"}
-]
-flag = [                                                  
-  {"name": "human", "desc": "human readable output"}
-]
+frml.append("f &= c0/\\lambda")
+auth.append("Huseyin YIGIT, yigit.hsyn@gmail.com")
+parg.append({"name": "wavelength", "desc": "wavelength in meters [m]", "type": float, "cont": "+"})
+flag.append({"name": "human", "desc": "human readable output"})
+
+# prepare arguments
+tmpl = ""
+with open("templates/prepare_arguments.py", "r") as file:
+  tmpl = "".join(file.readlines())
+exec(tmpl)
 
 # argument parsing 
 tmpl = ""
@@ -58,4 +57,3 @@ if "--human" in sys.argv:
   print("\n%s"%tabl)
 else:
   numpy.savetxt(sys.stdout,out0,fmt='%.1G',delimiter="\n")
-

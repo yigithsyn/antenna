@@ -1,32 +1,29 @@
 import sys, os, argparse, prettytable
 import math, numpy
 
+# definitions
+# arguments
 tmpl = ""
-with open("templates/initials.py", "r") as file:
+with open("templates/arguments.py", "r") as file:
   tmpl = "".join(file.readlines())
 exec(tmpl)
-
 
 snme = "ante.meas.mren"                                   
 lnme = "antenna.measurement.minimumRadiusEnclosed"        
 desc = "calculates minimum radius enclosed (MRE) of the antenna for spherical near-field (SNF) measurements"              
-expl = [                                                  
-  "Calculation is unitless so output is the same quantity of inputs."
-]
-frml = [                                                  
- "mre &= \\sqrt{dx^2+dy^2+dz^2}"
-]
-auth = [                                                  
-  "Huseyin YIGIT, yigit.hsyn@gmail.com"
-]
-parg = [                                                  
-  {"name": "dx", "desc": "max displacement from rotation center along x-axis", "type": float, "cont": 1},
-  {"name": "dy", "desc": "max displacement from rotation center along y-axis", "type": float, "cont": 1},
-  {"name": "dz", "desc": "max displacement from rotation center along z-axis", "type": float, "cont": 1}
-]
-flag = [                                                  
-  {"name": "human", "desc": "human readable output"}
-]
+expl.append("Calculation is unitless so output is the same quantity of inputs.")
+frml.append("mre &= \\sqrt{dx^2+dy^2+dz^2}")
+auth.append("Huseyin YIGIT, yigit.hsyn@gmail.com")
+parg.append({"name": "dx", "desc": "max displacement from rotation center along x-axis", "type": float, "cont": 1})
+parg.append({"name": "dy", "desc": "max displacement from rotation center along y-axis", "type": float, "cont": 1})
+parg.append({"name": "dz", "desc": "max displacement from rotation center along z-axis", "type": float, "cont": 1})
+flag.append({"name": "human", "desc": "human readable output"})
+
+# prepare arguments
+tmpl = ""
+with open("templates/prepare_arguments.py", "r") as file:
+  tmpl = "".join(file.readlines())
+exec(tmpl)
 
 # argument parsing 
 tmpl = ""

@@ -1,33 +1,28 @@
 import sys, os, argparse, prettytable
 import numpy
 
+# arguments
 tmpl = ""
-with open("templates/initials.py", "r") as file:
+with open("templates/arguments.py", "r") as file:
   tmpl = "".join(file.readlines())
 exec(tmpl)
 
 snme = "ante.util.gm2s"                                   
 lnme = "antenna.utility.gammaToSwr"                       
 desc = "reflection coefficient (gamma) to voltage standing wave ratio (vswr) conversion"              
-frml = [                                                  
- "SWR &= \\dfrac{1+|\\Gamma|}{1-|\\Gamma|}"
-]
-auth = [                                                  
-  "Huseyin YIGIT, yigit.hsyn@gmail.com"
-]
-refs = [                                                  
-  "[Reflection coefficient - Wikipedia](https://en.wikipedia.org/wiki/Reflection_coefficient)",
-  "[Standing wave ratio - Wikipedia](https://en.wikipedia.org/wiki/Standing_wave_ratio)"
-]
-parg = [                                                  
-  {"name": "gamma", "desc": "reflection coefficient", "type": float, "cont": "+"}
-]
-flag = [                                                  
-  {"name": "db",    "desc": "input reflection coefficient in dB"},
-  {"name": "human", "desc": "human readable output"}
-]
+frml.append("SWR &= \\dfrac{1+|\\Gamma|}{1-|\\Gamma|}")
+auth.append("Huseyin YIGIT, yigit.hsyn@gmail.com")
+refs.append("[Reflection coefficient - Wikipedia](https://en.wikipedia.org/wiki/Reflection_coefficient)")
+refs.append("[Standing wave ratio - Wikipedia](https://en.wikipedia.org/wiki/Standing_wave_ratio)")
+parg.append({"name": "gamma", "desc": "reflection coefficient", "type": float, "cont": "+"})
+flag.append({"name": "db",    "desc": "input reflection coefficient in dB"})
+flag.append({"name": "human", "desc": "human readable output"})
 
-
+# prepare arguments
+tmpl = ""
+with open("templates/prepare_arguments.py", "r") as file:
+  tmpl = "".join(file.readlines())
+exec(tmpl)
 
 # argument parsing 
 tmpl = ""
