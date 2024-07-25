@@ -4,7 +4,8 @@ snme = "ante"                                             # short name
 lnme = "antenna"                                          # long name
 desc = "Antenna Toolkit"                                  # description
 fncs = [                                                  # functions
-  {"snme": "util", "lnme": "utility", "desc": "Utility functions"}
+  {"snme": "util", "lnme": "utility",     "desc": "Utility functions"},
+  {"snme": "meas", "lnme": "measurement", "desc": "Measurement support functions"}
 ]
 expl = []                                                 # explanation
 frml = []                                                 # formulas 

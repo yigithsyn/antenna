@@ -3,7 +3,7 @@ import scipy
 import numpy
 
 snme = "ante.meas.mnfr"                                   # short name
-lnme = "antenna.measurement.miniumumNearFieldDistance"    # long name
+lnme = "antenna.measurement.miniumumNearFieldRange"       # long name
 desc = "minimum recommended distance for near-field antenna measurements in meters" # description             
 fncs = []                                                 # functions
 expl = [                                                  # explanation

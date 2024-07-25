@@ -4,7 +4,10 @@ snme = "ante.meas"                                        # short name
 lnme = "antenna.measurement"                              # long name
 desc = "Antenna Measurement support functions"            # description
 fncs = [                                                  # functions
-  {"snme": "mnfd", "lnme": "miniumumNearFieldDistance", "desc": "minimum recommended distance for near-field antenna measurements"},
+  {"snme": "mnfr", "lnme": "miniumumNearFieldRange",  "desc": "minimum recommended distance for near-field antenna measurements"},
+  {"snme": "mren", "lnme": "minimumRadiusEnclosed",   "desc": "calculates minimum radius enclosed (MRE) of the antenna for spherical near-field (SNF) measurements"},
+  {"snme": "nfps", "lnme": "nearFieldPlanarSampling", "desc": "near-field planar antenna measurement sampling count"},
+  {"snme": "nfsl", "lnme": "nearFieldSamplingLength", "desc": "minimum sampling distance for near-field antenna measurements"},
 ]
 expl = []                                                 # explanation
 frml = []                                                 # formulas 
@@ -19,7 +22,7 @@ flag = []                                                 # flags
 # preparation for parsing 
 flst = []                                                 # function list
 for i in range(len(fncs)):
-  flst.append("  %s: %s"%(fncs[i]["snme"].ljust(4),fncs[i]["desc"]))
+  flst.append("  %s: %s"%(fncs[i]["lnme"].ljust(25),fncs[i]["desc"]))
 for i in range(len(frml)):
   frml[i] = "  " + frml[i]
 for i in range(len(expl)):

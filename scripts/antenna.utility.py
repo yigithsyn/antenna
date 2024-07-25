@@ -22,7 +22,7 @@ flag = []                                                 # flags
 # preparation for parsing 
 flst = []                                                 # function list
 for i in range(len(fncs)):
-  flst.append("  %s: %s"%(fncs[i]["snme"].ljust(4),fncs[i]["desc"]))
+  flst.append("  %s: %s"%(fncs[i]["lnme"].ljust(25),fncs[i]["desc"]))
 for i in range(len(frml)):
   frml[i] = "  " + frml[i]
 for i in range(len(expl)):

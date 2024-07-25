@@ -1,9 +1,9 @@
 import sys, os, argparse, prettytable
 import scipy, math
 
-snme = "ante.meas.nfsc"                                   # short name
-lnme = "antenna.measurement.nearFieldSamplingCount"       # long name
-desc = "near-field antenna measurement sampling count"    # description             
+snme = "ante.meas.nfps"                                   # short name
+lnme = "antenna.measurement.nearFieldPlanarSampling"      # long name
+desc = "near-field planar antenna measurement sampling count"    # description             
 fncs = []                                                 # functions
 expl = [                                                  # explanation
   "function returns following outputs respectively:",
