@@ -1,22 +1,21 @@
 import sys, os, argparse
 
+tmpl = ""
+with open("templates/initials.py", "r") as file:
+  tmpl = "".join(file.readlines())
+exec(tmpl)
+
 snme = "ante.prop"                                        
 lnme = "antenna.propagation"                              
 desc = "Electormagnetic wave propagation functions"       
 fncs = [                                                  
 ]
-expl = []                                                 
-frml = []                                                 
 auth = [                                                  
   "Huseyin YIGIT, yigit.hsyn@gmail.com"
 ]
-refs = []                                                 
-parg = []                                                 
-oarg = []                                                 
-flag = []                                                 
 
 # preparation for parsing 
-flst = []                                                 # function list
+flst = []                                                 
 for i in range(len(fncs)):
   flst.append("  %s: %s"%(fncs[i]["lnme"].ljust(25),fncs[i]["desc"]))
 for i in range(len(frml)):

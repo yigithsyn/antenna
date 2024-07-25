@@ -2,10 +2,14 @@ import sys, os, argparse, prettytable
 import scipy
 import numpy
 
+tmpl = ""
+with open("templates/initials", "r") as file:
+  tmpl = "".join(file.readlines())
+exec(tmpl)
+
 snme = "ante.meas.mnfr"                                   
 lnme = "antenna.measurement.miniumumNearFieldRange"       
 desc = "minimum recommended distance for near-field antenna measurements in meters"              
-fncs = []                                                 
 expl = [                                                  
   "Standard suggests to choose between 3 or 5 wavelength.",
   "In order to ensure copuling effect, 5 wavelength distance is choosen and implemented."
@@ -22,54 +26,15 @@ refs = [
 parg = [                                                  
   {"name": "frequency", "desc": "frequency of interest in Hertz [Hz]", "type": float, "cont": "+"}
 ]
-oarg = []                                                 
 flag = [                                                  
   {"name": "human", "desc": "human readable output"}
 ]
 
-# preparation for parsing 
-flst = []                                                 # function list
-for i in range(len(fncs)):
-  flst.append("  %s: %s"%(fncs[i]["snme"].ljust(4),fncs[i]["desc"]))
-for i in range(len(frml)):
-  frml[i] = "  " + frml[i]
-for i in range(len(expl)):
-  expl[i] = "  " + expl[i]
-for i in range(len(auth)):
-  auth[i] = "  " + auth[i]
-for i in range(len(refs)):
-  refs[i] = "  - " + refs[i]
-
 # argument parsing 
-class ArgumentParser(argparse.ArgumentParser):
-    def error(self, message):
-        print("error: %s\n"%message)
-        self.print_help(sys.stderr)
-        exit(2)
-pars = ArgumentParser(prog=lnme,  
-                      description="%s%s%s"%(
-                        desc,
-                        '\n\nfunctions:\n' if fncs else '','\n'.join(flst)),
-                      formatter_class=argparse.RawDescriptionHelpFormatter, 
-                      epilog="%s%s%s%s%s%s%s%s"%(
-                        '\n\nexplanation:\n' if expl else '','\n'.join(expl),
-                        '\n\nformula:\n' if frml else '','\n'.join(frml),
-                        '\n\nauthor:\n' if auth else '','\n'.join(auth),
-                        '\n\nreferences:\n' if refs else '','\n'.join(refs)))
-for item in parg:
-  pars.add_argument(item["name"], help=item["desc"], type=item["type"], nargs=item["cont"])
-for item in oarg:
-  pars.add_argument("--"+item["name"], help=item["desc"], type=item["type"], default=item["default"], nargs=item["cont"])
-for item in flag:
-  pars.add_argument("--"+item['name'], help=item['desc'], action="store_true")
-parg = [] 
-if not os.isatty(sys.stdin.fileno()):
-  for line in list(sys.stdin):
-    parg.append(line.rstrip().split() + list(filter(lambda item: '-' in item or '--' in item, sys.argv[1:])))
-    pars.parse_args(parg[-1])
-else:
-  parg.append(sys.argv[1:])
-  pars.parse_args(parg[-1])
+tmpl = ""
+with open("templates/argument_parsing.py", "r") as file:
+  tmpl = "".join(file.readlines())
+exec(tmpl)
 
 # implementation
 out0 = []

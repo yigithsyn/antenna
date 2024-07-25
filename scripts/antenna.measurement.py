@@ -1,5 +1,10 @@
 import sys, os, argparse
 
+tmpl = ""
+with open("templates/initials.py", "r") as file:
+  tmpl = "".join(file.readlines())
+exec(tmpl)
+
 snme = "ante.meas"                                        
 lnme = "antenna.measurement"                              
 desc = "Antenna Measurement support functions"            
@@ -20,7 +25,7 @@ oarg = []
 flag = []                                                 
 
 # preparation for parsing 
-flst = []                                                 # function list
+flst = []                                                 
 for i in range(len(fncs)):
   flst.append("  %s: %s"%(fncs[i]["lnme"].ljust(25),fncs[i]["desc"]))
 for i in range(len(frml)):
