@@ -1,23 +1,23 @@
 import sys, os, argparse, prettytable
 import scipy, numpy
 
-snme = "ante.meas.nfsl"                                   # short name
-lnme = "antenna.measurement.nearFieldSamplingLength"      # long name
-desc = "minimum sampling distance for near-field antenna measurements" # description             
-fncs = []                                                 # functions
-expl = []                                                 # explanation
-frml = [                                                  # formulas 
+snme = "ante.meas.nfsl"                                   
+lnme = "antenna.measurement.nearFieldSamplingLength"      
+desc = "minimum sampling distance for near-field antenna measurements"              
+fncs = []                                                 
+expl = []                                                 
+frml = [                                                  
  "\\Delta &= \\lambda/2 = c_0/(2\\timesf)"
 ]
-auth = [                                                  # authors
+auth = [                                                  
   "Huseyin YIGIT, yigit.hsyn@gmail.com"
 ]
-refs = []                                                 # references
-parg = [                                                  # positional arguments
+refs = []                                                 
+parg = [                                                  
   {"name": "frequency", "desc": "frequency of interest in Hertz [Hz]", "type": float, "cont": "+"}
 ]
-oarg = []                                                 # optional arguments
-flag = [                                                  # flags
+oarg = []                                                 
+flag = [                                                  
   {"name": "human", "desc": "human readable output"}
 ]
   

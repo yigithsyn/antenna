@@ -1,28 +1,28 @@
 import sys, os, argparse, prettytable
 import scipy, math
 
-snme = "ante.meas.nfps"                                   # short name
-lnme = "antenna.measurement.nearFieldPlanarSampling"      # long name
-desc = "near-field planar antenna measurement sampling count"    # description             
-fncs = []                                                 # functions
-expl = [                                                  # explanation
+snme = "ante.meas.nfps"                                   
+lnme = "antenna.measurement.nearFieldPlanarSampling"      
+desc = "near-field planar antenna measurement sampling count"                 
+fncs = []                                                 
+expl = [                                                  
   "function returns following outputs respectively:",
   "  calculated sampling length",
   "  sampling start position (zero centered)",
   "  sampling finish position (zero centered)",
   "  sampling count"
 ]
-frml = []                                                 # formulas 
-auth = [                                                  # authors
+frml = []                                                 
+auth = [                                                  
   "Huseyin YIGIT, yigit.hsyn@gmail.com"
 ]
-refs = []                                                 # references
-parg = [                                                  # positional arguments
+refs = []                                                 
+parg = [                                                  
   {"name": "frequency", "desc": "frequency of interest in Hertz [Hz]",           "type": float, "cont": 1},
   {"name": "length",    "desc": "initial desired sampling length in meters [m]", "type": float, "cont": 1},
 ]
-oarg = []                                                 # optional arguments
-flag = [                                                  # flags
+oarg = []                                                 
+flag = [                                                  
   {"name": "human", "desc": "human readable output"}
 ]
   

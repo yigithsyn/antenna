@@ -1,27 +1,27 @@
 import sys, os, argparse, prettytable
 import math, numpy
 
-snme = "ante.meas.mren"                                   # short name
-lnme = "antenna.measurement.minimumRadiusEnclosed"        # long name
-desc = "calculates minimum radius enclosed (MRE) of the antenna for spherical near-field (SNF) measurements" # description             
-fncs = []                                                 # functions
-expl = [                                                  # explanation
+snme = "ante.meas.mren"                                   
+lnme = "antenna.measurement.minimumRadiusEnclosed"        
+desc = "calculates minimum radius enclosed (MRE) of the antenna for spherical near-field (SNF) measurements"              
+fncs = []                                                 
+expl = [                                                  
   "Calculation is unitless so output is the same quantity of inputs."
 ]
-frml = [                                                  # formulas 
+frml = [                                                  
  "mre &= \\sqrt{dx^2+dy^2+dz^2}"
 ]
-auth = [                                                  # authors
+auth = [                                                  
   "Huseyin YIGIT, yigit.hsyn@gmail.com"
 ]
-refs = []                                                 # references
-parg = [                                                  # positional arguments
+refs = []                                                 
+parg = [                                                  
   {"name": "dx", "desc": "max displacement from rotation center along x-axis", "type": float, "cont": 1},
   {"name": "dy", "desc": "max displacement from rotation center along y-axis", "type": float, "cont": 1},
   {"name": "dz", "desc": "max displacement from rotation center along z-axis", "type": float, "cont": 1}
 ]
-oarg = []                                                 # optional arguments
-flag = [                                                  # flags
+oarg = []                                                 
+flag = [                                                  
   {"name": "human", "desc": "human readable output"}
 ]
   

@@ -1,23 +1,23 @@
 import sys, os, argparse
 
-snme = "ante.meas"                                        # short name
-lnme = "antenna.measurement"                              # long name
-desc = "Antenna Measurement support functions"            # description
-fncs = [                                                  # functions
+snme = "ante.meas"                                        
+lnme = "antenna.measurement"                              
+desc = "Antenna Measurement support functions"            
+fncs = [                                                  
   {"snme": "mnfr", "lnme": "miniumumNearFieldRange",  "desc": "minimum recommended distance for near-field antenna measurements"},
   {"snme": "mren", "lnme": "minimumRadiusEnclosed",   "desc": "calculates minimum radius enclosed (MRE) of the antenna for spherical near-field (SNF) measurements"},
   {"snme": "nfps", "lnme": "nearFieldPlanarSampling", "desc": "near-field planar antenna measurement sampling count"},
   {"snme": "nfsl", "lnme": "nearFieldSamplingLength", "desc": "minimum sampling distance for near-field antenna measurements"},
 ]
-expl = []                                                 # explanation
-frml = []                                                 # formulas 
-auth = [                                                  # authors
+expl = []                                                 
+frml = []                                                 
+auth = [                                                  
   "Huseyin YIGIT, yigit.hsyn@gmail.com"
 ]
-refs = []                                                 # references
-parg = []                                                 # positional arguments
-oarg = []                                                 # optional arguments
-flag = []                                                 # flags
+refs = []                                                 
+parg = []                                                 
+oarg = []                                                 
+flag = []                                                 
 
 # preparation for parsing 
 flst = []                                                 # function list

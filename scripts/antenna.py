@@ -1,21 +1,21 @@
 import sys, os, argparse
 
-snme = "ante"                                             # short name
-lnme = "antenna"                                          # long name
-desc = "Antenna Toolkit"                                  # description
-fncs = [                                                  # functions
+snme = "ante"                                             
+lnme = "antenna"                                          
+desc = "Antenna Toolkit"                                  
+fncs = [                                                  
   {"snme": "util", "lnme": "utility",     "desc": "Utility functions"},
   {"snme": "meas", "lnme": "measurement", "desc": "Measurement support functions"}
 ]
-expl = []                                                 # explanation
-frml = []                                                 # formulas 
-auth = [                                                  # authors
+expl = []                                                 
+frml = []                                                 
+auth = [                                                  
   "Huseyin YIGIT, yigit.hsyn@gmail.com"
 ]
-refs = []                                                 # references
-parg = []                                                 # positional arguments
-oarg = []                                                 # optional arguments
-flag = []                                                 # flags
+refs = []                                                 
+parg = []                                                 
+oarg = []                                                 
+flag = []                                                 
 
 # preparation for parsing 
 flst = []                                                 # function list

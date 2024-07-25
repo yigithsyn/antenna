@@ -1,26 +1,26 @@
 import sys, os, argparse, prettytable
 import numpy
 
-snme = "ante.util.gm2s"                                   # short name
-lnme = "antenna.utility.gammaToSwr"                       # long name
-desc = "reflection coefficient (gamma) to voltage standing wave ratio (vswr) conversion" # description             
-fncs = []                                                 # functions
-expl = []                                                 # explanation
-frml = [                                                  # formulas 
+snme = "ante.util.gm2s"                                   
+lnme = "antenna.utility.gammaToSwr"                       
+desc = "reflection coefficient (gamma) to voltage standing wave ratio (vswr) conversion"              
+fncs = []                                                 
+expl = []                                                 
+frml = [                                                  
  "SWR &= \\dfrac{1+|\\Gamma|}{1-|\\Gamma|}"
 ]
-auth = [                                                  # authors
+auth = [                                                  
   "Huseyin YIGIT, yigit.hsyn@gmail.com"
 ]
-refs = [                                                  # references
+refs = [                                                  
   "[Reflection coefficient - Wikipedia](https://en.wikipedia.org/wiki/Reflection_coefficient)",
   "[Standing wave ratio - Wikipedia](https://en.wikipedia.org/wiki/Standing_wave_ratio)"
 ]
-parg = [                                                  # positional arguments
+parg = [                                                  
   {"name": "gamma", "desc": "reflection coefficient", "type": float, "cont": "+"}
 ]
-oarg = []                                                 # optional arguments
-flag = [                                                  # flags
+oarg = []                                                 
+flag = [                                                  
   {"name": "db",    "desc": "input reflection coefficient in dB"},
   {"name": "human", "desc": "human readable output"}
 ]

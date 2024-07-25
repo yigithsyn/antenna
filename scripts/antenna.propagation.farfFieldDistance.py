@@ -1,26 +1,26 @@
 import sys, os, argparse, prettytable
 import scipy, numpy
 
-snme = "ante.prop.ffds"                                   # short name
-lnme = "antenna.propagation.farFieldDistance"             # long name
-desc = "far-field (Fraunhofer) distance of an antenna or aperture" # description             
-fncs = []                                                 # functions
-expl = []                                                 # explanation
-frml = [                                                  # formulas 
+snme = "ante.prop.ffds"                                   
+lnme = "antenna.propagation.farFieldDistance"             
+desc = "far-field (Fraunhofer) distance of an antenna or aperture"              
+fncs = []                                                 
+expl = []                                                 
+frml = [                                                  
  "R_{ff} &= Max\\left(\\dfrac{2D^2}{\\lambda},5D,1.6\\lambda\\right)"
 ]
-auth = [                                                  # authors
+auth = [                                                  
   "Huseyin YIGIT, yigit.hsyn@gmail.com"
 ]
-refs = [                                                  # references
+refs = [                                                  
   "Warren L. Stutzman, Antenna Theory and Design, 3rd Ed., Page 43"
 ]
-parg = [                                                  # positional arguments
+parg = [                                                  
   {"name": "frequency", "desc": "frequency of interest in Hz",  "type": float, "cont": 1},
   {"name": "D",         "desc": "maximum cross-sectional size", "type": float, "cont": 1},
 ]
-oarg = []                                                 # optional arguments
-flag = [                                                  # flags
+oarg = []                                                 
+flag = [                                                  
   {"name": "human", "desc": "human readable output"}
 ]
   

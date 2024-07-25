@@ -1,26 +1,26 @@
 import sys, os, argparse, prettytable
 import numpy
 
-snme = "ante.util.sw2g"                                   # short name
-lnme = "antenna.utility.swrToGamma"                       # long name
-desc = "voltage standing wave ratio (vswr) to reflection coefficient (gamma) conversion" # description             
-fncs = []                                                 # functions
-expl = []                                                 # explanation
-frml = [                                                  # formulas 
+snme = "ante.util.sw2g"                                   
+lnme = "antenna.utility.swrToGamma"                       
+desc = "voltage standing wave ratio (vswr) to reflection coefficient (gamma) conversion"              
+fncs = []                                                 
+expl = []                                                 
+frml = [                                                  
  "\\Gamma &= \\dfrac{1-SWR}{1+SWR}"
 ]
-auth = [                                                  # authors
+auth = [                                                  
   "Huseyin YIGIT, yigit.hsyn@gmail.com"
 ]
-refs = [                                                  # references
+refs = [                                                  
   "[Reflection coefficient - Wikipedia](https://en.wikipedia.org/wiki/Reflection_coefficient)",
   "[Standing wave ratio - Wikipedia](https://en.wikipedia.org/wiki/Standing_wave_ratio)"
 ]
-parg = [                                                  # positional arguments
+parg = [                                                  
   {"name": "swr", "desc": "standing wave ratio", "type": float, "cont": "+"}
 ]
-oarg = []                                                 # optional arguments
-flag = [                                                  # flags
+oarg = []                                                 
+flag = [                                                  
   {"name": "db",    "desc": "output reflection coefficient in dB"},
   {"name": "human", "desc": "human readable output"}
 ]

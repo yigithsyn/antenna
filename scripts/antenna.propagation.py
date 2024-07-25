@@ -1,19 +1,19 @@
 import sys, os, argparse
 
-snme = "ante.prop"                                        # short name
-lnme = "antenna.propagation"                              # long name
-desc = "Electormagnetic wave propagation functions"       # description
-fncs = [                                                  # functions
+snme = "ante.prop"                                        
+lnme = "antenna.propagation"                              
+desc = "Electormagnetic wave propagation functions"       
+fncs = [                                                  
 ]
-expl = []                                                 # explanation
-frml = []                                                 # formulas 
-auth = [                                                  # authors
+expl = []                                                 
+frml = []                                                 
+auth = [                                                  
   "Huseyin YIGIT, yigit.hsyn@gmail.com"
 ]
-refs = []                                                 # references
-parg = []                                                 # positional arguments
-oarg = []                                                 # optional arguments
-flag = []                                                 # flags
+refs = []                                                 
+parg = []                                                 
+oarg = []                                                 
+flag = []                                                 
 
 # preparation for parsing 
 flst = []                                                 # function list

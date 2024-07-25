@@ -2,23 +2,23 @@ import sys, os, argparse, prettytable
 import scipy
 import numpy
 
-snme = "ante.util.wl2f"                                   # short name
-lnme = "antenna.utility.wavelengthToFrequency"            # long name
-desc = "wavelength to frequency conversion"               # description
-fncs = []                                                 # functions
-expl = []                                                 # explanation
-frml = [                                                  # formulas 
+snme = "ante.util.wl2f"                                   
+lnme = "antenna.utility.wavelengthToFrequency"            
+desc = "wavelength to frequency conversion"               
+fncs = []                                                 
+expl = []                                                 
+frml = [                                                  
   "f &= c0/\\lambda"
 ]
-auth = [                                                  # authors
+auth = [                                                  
   "Huseyin YIGIT, yigit.hsyn@gmail.com"
 ]
-refs = []                                                 # references
-parg = [                                                  # positional arguments
+refs = []                                                 
+parg = [                                                  
   {"name": "wavelength", "desc": "wavelength in meters [m]", "type": float, "cont": "+"}
 ]
-oarg = []                                                 # optional arguments
-flag = [                                                  # flags
+oarg = []                                                 
+flag = [                                                  
   {"name": "human", "desc": "human readable output"}
 ]
 

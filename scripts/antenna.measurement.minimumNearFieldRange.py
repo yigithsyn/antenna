@@ -2,28 +2,28 @@ import sys, os, argparse, prettytable
 import scipy
 import numpy
 
-snme = "ante.meas.mnfr"                                   # short name
-lnme = "antenna.measurement.miniumumNearFieldRange"       # long name
-desc = "minimum recommended distance for near-field antenna measurements in meters" # description             
-fncs = []                                                 # functions
-expl = [                                                  # explanation
+snme = "ante.meas.mnfr"                                   
+lnme = "antenna.measurement.miniumumNearFieldRange"       
+desc = "minimum recommended distance for near-field antenna measurements in meters"              
+fncs = []                                                 
+expl = [                                                  
   "Standard suggests to choose between 3 or 5 wavelength.",
   "In order to ensure copuling effect, 5 wavelength distance is choosen and implemented."
 ]
-frml = [                                                  # formulas 
+frml = [                                                  
  "R_{nf} &= 5\\times\\lambda = 5\\times c_0/f"
 ]
-auth = [                                                  # authors
+auth = [                                                  
   "Huseyin YIGIT, yigit.hsyn@gmail.com"
 ]
-refs = [                                                  # references
+refs = [                                                  
   "[IEEE 1720-2012 Recommended Practice for Near-Field Antenna Measurements, Section 5.3.1.4, Page 27](https://ieeexplore.ieee.org/document/6375745)",
 ]
-parg = [                                                  # positional arguments
+parg = [                                                  
   {"name": "frequency", "desc": "frequency of interest in Hertz [Hz]", "type": float, "cont": "+"}
 ]
-oarg = []                                                 # optional arguments
-flag = [                                                  # flags
+oarg = []                                                 
+flag = [                                                  
   {"name": "human", "desc": "human readable output"}
 ]
 
