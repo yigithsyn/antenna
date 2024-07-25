@@ -1,15 +1,14 @@
 import sys, os, argparse, prettytable
 import math, numpy
 
-# definitions
 # arguments
 tmpl = ""
 with open("templates/arguments.py", "r") as file:
   tmpl = "".join(file.readlines())
 exec(tmpl)
 
-snme = "ante.meas.mren"                                   
-lnme = "antenna.measurement.minimumRadiusEnclosed"        
+snme = "mren"                                   
+lnme = "minimumRadiusEnclosed"        
 desc = "calculates minimum radius enclosed (MRE) of the antenna for spherical near-field (SNF) measurements"              
 expl.append("Calculation is unitless so output is the same quantity of inputs.")
 frml.append("mre &= \\sqrt{dx^2+dy^2+dz^2}")

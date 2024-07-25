@@ -7,8 +7,8 @@ with open("templates/arguments.py", "r") as file:
   tmpl = "".join(file.readlines())
 exec(tmpl)
 
-snme = "ante.meas.nfsl"                                   
-lnme = "antenna.measurement.nearFieldSamplingLength"      
+snme = "nfsl"                                   
+lnme = "nearFieldSamplingLength"      
 desc = "minimum sampling distance for near-field antenna measurements"              
 frml.append("\\Delta &= \\lambda/2 = c_0/(2\\timesf)")
 auth.append("Huseyin YIGIT, yigit.hsyn@gmail.com")

@@ -8,8 +8,8 @@ with open("templates/arguments.py", "r") as file:
   tmpl = "".join(file.readlines())
 exec(tmpl)
 
-snme = "ante.util.wl2f"                                   
-lnme = "antenna.utility.wavelengthToFrequency"            
+snme = "wl2f"                                   
+lnme = "wavelengthToFrequency"            
 desc = "wavelength to frequency conversion"               
 frml.append("f &= c0/\\lambda")
 auth.append("Huseyin YIGIT, yigit.hsyn@gmail.com")

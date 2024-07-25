@@ -7,8 +7,8 @@ with open("templates/arguments.py", "r") as file:
   tmpl = "".join(file.readlines())
 exec(tmpl)
 
-snme = "ante.prop.ffds"                                   
-lnme = "antenna.propagation.farFieldDistance"             
+snme = "ffds"                                   
+lnme = "farFieldDistance"             
 desc = "far-field (Fraunhofer) distance of an antenna or aperture"              
 frml.append("R_{ff} &= Max\\left(\\dfrac{2D^2}{\\lambda},5D,1.6\\lambda\\right)")
 auth.append("Huseyin YIGIT, yigit.hsyn@gmail.com")
