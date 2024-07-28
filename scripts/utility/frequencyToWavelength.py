@@ -14,7 +14,6 @@ desc = "frequency to wavelength conversion"
 frml.append("\\lambda &= c0/f")
 auth.append("Huseyin YIGIT, yigit.hsyn@gmail.com")
 parg.append({"name": "frequency", "desc": "frequency in Hertz [Hz]", "type": float, "cont": "+"})
-flag.append({"name": "human", "desc": "human readable output"})
 
 # prepare arguments
 tmpl = ""
@@ -40,7 +39,7 @@ out0 = scipy.constants.speed_of_light / numpy.asarray(inp0)
 tabl = prettytable.PrettyTable()
 tabl.set_style(prettytable.MARKDOWN)
 tabl.field_names = ["Frequency [Hz]", "Wavelength",]
-if "--human" in sys.argv:
+if "--raw" not in sys.argv:
   for i in range(len(out0)):
     for j in range(len(out0[i])):
       if out0[i][j] >= 1e3:

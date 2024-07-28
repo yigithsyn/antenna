@@ -14,7 +14,6 @@ frml.append("R_{los} &= \\sqrt{2\\cdotR\\cdoth} \\approx 3.57\\times\\sqrt{h} [k
 auth.append("Huseyin YIGIT, yigit.hsyn@gmail.com")
 refs.append("[Line-of-sight propagation - Wikipedia](https://en.wikipedia.org/wiki/Line-of-sight_propagation)")
 parg.append({"name": "height", "desc": "height of transmitter/recevier above ground in meters [m]",  "type": float, "cont": "+"})
-flag.append({"name": "human",  "desc": "human readable output"})
   
 # prepare arguments
 tmpl = ""
@@ -41,7 +40,7 @@ outs = 3.57*numpy.sqrt(inps)
 tabl = prettytable.PrettyTable()
 tabl.set_style(prettytable.MARKDOWN)
 tabl.field_names = ["height [m]", "line-of-light distance [km]"]
-if "--human" in sys.argv:
+if "--raw" not in sys.argv:
   for i, item in enumerate(outs):
     tabl.add_row(["%.3f"%inps[i], "%.6f"%item])
   print("\n%s"%tabl)

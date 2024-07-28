@@ -8,6 +8,6 @@ auth = []
 refs = []                                                 
 parg = []                                                 
 oarg = []                                                 
-flag = []      
+flag = [{"name": "raw",  "desc": "raw (only result) output"}]      
 
 

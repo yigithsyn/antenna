@@ -15,7 +15,6 @@ auth.append("Huseyin YIGIT, yigit.hsyn@gmail.com")
 refs.append("Warren L. Stutzman, Antenna Theory and Design, 3rd Ed., Page 43")
 parg.append({"name": "frequency", "desc": "frequency of interest in Hz",  "type": float, "cont": 1})
 parg.append({"name": "D",         "desc": "maximum cross-sectional size", "type": float, "cont": 1})
-flag.append({"name": "human", "desc": "human readable output"})
   
 # prepare arguments
 tmpl = ""
@@ -43,7 +42,7 @@ ffds = numpy.max([2*numpy.power(clen,2)/clen,5*clen,1.5*wlen], axis=0)
 tabl = prettytable.PrettyTable()
 tabl.set_style(prettytable.MARKDOWN)
 tabl.field_names = ["frequency [Hz]", "cross-section length [m]", "far-field distance"]
-if "--human" in sys.argv:
+if "--raw" not in sys.argv:
   for i, item in enumerate(ffds):
     if item >= 1e3:
       pstr = "%.1f km" % (item / 1e3)

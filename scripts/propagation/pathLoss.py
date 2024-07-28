@@ -17,7 +17,6 @@ parg.append({"name": "frequency", "desc": "frequency of interest in MegaHertz [M
 parg.append({"name": "R",         "desc": "range in kilometers [km]",                 "type": float, "cont": 1})
 oarg.append({"name": "G1",        "desc": "gain of transmitter antenna in [dB]",      "type": float, "cont": 1, "dflt": 0})
 oarg.append({"name": "G2",        "desc": "gain of receiver    antenna in [dB]",      "type": float, "cont": 1, "dflt": 0})
-flag.append({"name": "human", "desc": "human readable output"})
 
 # prepare arguments
 tmpl = ""
@@ -52,7 +51,7 @@ print(outs)
 # tabl = prettytable.PrettyTable()
 # tabl.set_style(prettytable.MARKDOWN)
 # tabl.field_names = ["dx", "dy", "dz", "MRE"]
-# if "--human" in sys.argv:
+# if "--raw" not in sys.argv:
 #   for i in range(len(out0)):
 #     for j in range(len(out0[i])):
 #       tabl.add_row(["%s"%parg[i][0],"%s"%parg[i][1],"%s"%parg[i][2],"%.3f"%out0[i][j]])

@@ -16,7 +16,6 @@ auth.append("Huseyin YIGIT, yigit.hsyn@gmail.com")
 parg.append({"name": "dx", "desc": "max displacement from rotation center along x-axis", "type": float, "cont": 1})
 parg.append({"name": "dy", "desc": "max displacement from rotation center along y-axis", "type": float, "cont": 1})
 parg.append({"name": "dz", "desc": "max displacement from rotation center along z-axis", "type": float, "cont": 1})
-flag.append({"name": "human", "desc": "human readable output"})
 
 # prepare arguments
 tmpl = ""
@@ -41,7 +40,7 @@ for item in parg:
 tabl = prettytable.PrettyTable()
 tabl.set_style(prettytable.MARKDOWN)
 tabl.field_names = ["dx", "dy", "dz", "MRE"]
-if "--human" in sys.argv:
+if "--raw" not in sys.argv:
   for i in range(len(out0)):
     for j in range(len(out0[i])):
       tabl.add_row(["%s"%parg[i][0],"%s"%parg[i][1],"%s"%parg[i][2],"%.3f"%out0[i][j]])

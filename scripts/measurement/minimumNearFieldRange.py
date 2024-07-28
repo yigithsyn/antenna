@@ -17,7 +17,6 @@ frml.append("R_{nf} &= 5\\times\\lambda = 5\\times c_0/f")
 auth.append("Huseyin YIGIT, yigit.hsyn@gmail.com")
 refs.append("[IEEE 1720-2012 Recommended Practice for Near-Field Antenna Measurements, Section 5.3.1.4, Page 27](https://ieeexplore.ieee.org/document/6375745)")
 parg.append({"name": "frequency", "desc": "frequency of interest in Hertz [Hz]", "type": float, "cont": "+"})
-flag.append({"name": "human", "desc": "human readable output"})
 
 # prepare arguments
 tmpl = ""
@@ -43,7 +42,7 @@ out0 = 5*scipy.constants.speed_of_light/numpy.asarray(inp0)
 tabl = prettytable.PrettyTable()
 tabl.set_style(prettytable.MARKDOWN)
 tabl.field_names = ["Frequency [Hz]", "Near-field Starting Range"]
-if "--human" in sys.argv:
+if "--raw" not in sys.argv:
   for i in range(len(out0)):
     for j in range(len(out0[i])):
       if out0[i][j] >= 1e3:

@@ -18,7 +18,6 @@ expl.append("  sampling parameters")
 auth.append("Huseyin YIGIT, yigit.hsyn@gmail.com")
 parg.append({"name": "frequency", "desc": "frequency of interest in Hertz [Hz]",           "type": float, "cont": 1})
 parg.append({"name": "length",    "desc": "initial desired sampling length in meters [m]", "type": float, "cont": 1})
-flag.append({"name": "human", "desc": "human readable output"})
 
 # prepare arguments
 tmpl = ""
@@ -47,7 +46,7 @@ for item in parg:
 tabl = prettytable.PrettyTable()
 tabl.set_style(prettytable.MARKDOWN)
 tabl.field_names = ["Frequency [Hz]", "Desired Length [m]", "Sampling Length [mm]", "Scan Start [m]", "Scan End [m]", "Sampling Count"]
-if "--human" in sys.argv:
+if "--raw" not in sys.argv:
   for i in range(len(outs)):
     tabl.add_row(["%s"%parg[i][0],"%s"%parg[i][1], "%d"%outs[i][0],"%.3f"%outs[i][1],"%.3f"%outs[i][2],"%d"%outs[i][3]])
   print("\n%s"%tabl)

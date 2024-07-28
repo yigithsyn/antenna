@@ -16,7 +16,6 @@ refs.append("[Reflection coefficient - Wikipedia](https://en.wikipedia.org/wiki/
 refs.append("[Standing wave ratio - Wikipedia](https://en.wikipedia.org/wiki/Standing_wave_ratio)")
 parg.append({"name": "gamma", "desc": "reflection coefficient", "type": float, "cont": "+"})
 flag.append({"name": "db",    "desc": "input reflection coefficient in dB"})
-flag.append({"name": "human", "desc": "human readable output"})
 
 # prepare arguments
 tmpl = ""
@@ -43,7 +42,7 @@ out0 = (1+out0)/(1-out0)
 tabl = prettytable.PrettyTable()
 tabl.set_style(prettytable.MARKDOWN)
 tabl.field_names = ["Gamma (S11)"+(" [dB]"if "--db" in sys.argv else ""), "(V)SWR"]
-if "--human" in sys.argv:
+if "--raw" not in sys.argv:
   for i in range(len(out0)):
     for j in range(len(out0[i])):
       tabl.add_row(["%s"%parg[i][j],"%.3f"%out0[i][j]])
