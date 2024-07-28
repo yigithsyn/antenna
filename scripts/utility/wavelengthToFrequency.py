@@ -1,6 +1,5 @@
 import sys, os, argparse, prettytable
-import scipy
-import numpy
+import scipy, numpy
 
 # arguments
 tmpl = ""
