@@ -7,9 +7,9 @@ with open("templates/arguments.py", "r") as file:
   tmpl = "".join(file.readlines())
 exec(tmpl)
 
-snme = "nfps"                                   
-lnme = "nearFieldPlanarSampling"      
-desc = "near-field planar antenna measurement sampling parameters"                 
+snme = "pnsc"                                   
+lnme = "planarNearFieldSamplingParameters"      
+desc = "planar near-field antenna measurement sampling parameters"                 
 expl.append("function returns following outputs respectively:")
 expl.append("  calculated sampling length")
 expl.append("  sampling start position (zero centered)")
