@@ -8,8 +8,8 @@ with open("templates/arguments.py", "r") as file:
 exec(tmpl)
 
 snme = "mren"                                   
-lnme = "minimumRadiusEnclosed"        
-desc = "calculates minimum radius enclosed (MRE) of the antenna for spherical near-field (SNF) measurements"              
+lnme = "maximumRadialExtend"        
+desc = "calculates maximum radial extend (MRE) of the antenna for spherical near-field (SNF) measurements"              
 expl.append("Calculation is unitless so output is the same quantity of inputs.")
 frml.append("mre &= \\sqrt{dx^2+dy^2+dz^2}")
 auth.append("Huseyin YIGIT, yigit.hsyn@gmail.com")
