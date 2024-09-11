@@ -17,3 +17,7 @@ pyinstaller antenna.py -y
 python3 main.py > antenna.py
 pyinstaller antenna.py -y
 ```
+
+## Inspired and Reference Projects
+- [Antenna Optimizer (PyPI :: antenna-optimizer)](https://github.com/schlatterbeck/antenna-optimizer)
+- [Plot Antenna (PyPI :: plot-antenna)](https://github.com/schlatterbeck/plot-antenna)
